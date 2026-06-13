@@ -19,7 +19,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Fonts: Space Grotesk (display) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -60,9 +59,9 @@
       color: #e8e8e8;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      width: 100%;
     }
 
-    /* ── Silver gradient text ── */
     .gradient-text {
       background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 40%, #787878 100%);
       -webkit-background-clip: text;
@@ -70,7 +69,6 @@
       background-clip: text;
     }
 
-    /* ── Accent line under section labels ── */
     .section-label {
       font-size: 11px;
       font-weight: 600;
@@ -80,7 +78,6 @@
       display: inline-block;
     }
 
-    /* ── Buttons ── */
     .btn-primary {
       background: linear-gradient(135deg, #e0e0e0 0%, #909090 100%);
       color: #080808;
@@ -120,7 +117,6 @@
       transform: scale(1.03);
     }
 
-    /* ── Cards ── */
     .v-card {
       background: #101010;
       border: 1px solid #1e1e1e;
@@ -132,7 +128,6 @@
       box-shadow: 0 0 32px rgba(180,180,180,0.04);
     }
 
-    /* ── Scroll reveal ── */
     .fade-in {
       opacity: 0;
       transform: translateY(22px);
@@ -143,14 +138,39 @@
       transform: translateY(0);
     }
 
-    /* ── Nav blur ── */
     .nav-blur {
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       background: rgba(8,8,8,0.88);
     }
 
-    /* ── Drifting orbs ── */
+    /* Loading screen */
+
+    #loader-screen{
+  position:fixed;
+  inset:0;
+  background:#080808;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  transition:opacity .5s ease;
+}
+
+.loader{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:5px solid rgba(255,255,255,.15);
+  border-top-color:#fff;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+    /* ── Orbs — capped size on small screens ── */
     .orb-wrap {
       position: fixed;
       inset: 0;
@@ -196,7 +216,6 @@
       100% { transform: translate(-40%,-60%) scale(1.15); }
     }
 
-    /* ── Hero grid overlay ── */
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
       background-image:
@@ -205,18 +224,17 @@
       background-size: 64px 64px;
     }
 
-    /* ── Stat counter ── */
     .stat-card {
       background: #101010;
       border: 1px solid #1e1e1e;
       border-radius: 12px;
-      padding: 20px 28px;
+      padding: 16px 12px;
       text-align: center;
     }
     .stat-number {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.6rem;
       background: linear-gradient(135deg, #ffffff 0%, #909090 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -224,13 +242,12 @@
       line-height: 1;
     }
     .stat-label {
-      font-size: 12px;
+      font-size: 11px;
       color: #555;
       margin-top: 6px;
       letter-spacing: 0.04em;
     }
 
-    /* ── Play button ── */
     .play-btn {
       width: 72px; height: 72px;
       border-radius: 50%;
@@ -245,7 +262,6 @@
       box-shadow: 0 0 32px rgba(200,200,200,0.2);
     }
 
-    /* ── Popular badge ── */
     .popular-badge {
       background: linear-gradient(135deg, #e0e0e0 0%, #909090 100%);
       color: #080808;
@@ -258,7 +274,6 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* ── Input fields ── */
     .input-field {
       width: 100%;
       background: #080808;
@@ -274,21 +289,140 @@
     .input-field::placeholder { color: #444; }
     .input-field:focus { border-color: #444; }
 
-    /* ── Check / cross ── */
     .check-icon { color: #d0d0d0; font-size: 16px; }
     .cross-icon { color: #2e2e2e; font-size: 16px; }
 
-    /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: #080808; }
     ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
     ::selection { background: rgba(180,180,180,0.2); color: #fff; }
 
-    @media (max-width: 767px) {
-      .orb-1 { width: 300px; height: 300px; }
-      .orb-2 { width: 250px; height: 250px; }
-      .orb-3 { width: 200px; height: 200px; }
+    /* ── BG logo — fully responsive ── */
+    .bg-logo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: min(600px, 90vw);
+      height: min(600px, 90vw);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      animation: spin-logo 30s linear infinite;
+      transform-origin: center center;
     }
+    @keyframes spin-logo {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE OVERRIDES — nothing else changed
+       ───────────────────────────────────────── */
+
+    /* Small phones (≤360px, e.g. Nokia) */
+    @media (max-width: 360px) {
+      .orb-1 { width: 200px; height: 200px; filter: blur(50px); }
+      .orb-2 { width: 180px; height: 180px; filter: blur(50px); }
+      .orb-3 { width: 150px; height: 150px; filter: blur(50px); }
+
+      .btn-primary, .btn-secondary {
+        padding: 11px 18px;
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+        display: block;
+      }
+
+      .stat-card { padding: 12px 8px; }
+      .stat-number { font-size: 1.25rem; }
+      .stat-label { font-size: 10px; }
+
+      .hero-grid { background-size: 40px 40px; }
+    }
+
+    /* All mobile (≤767px) */
+    @media (max-width: 767px) {
+      .orb-1 { width: 260px; height: 260px; filter: blur(60px); }
+      .orb-2 { width: 220px; height: 220px; filter: blur(60px); }
+      .orb-3 { width: 180px; height: 180px; filter: blur(60px); }
+
+      /* Prevent ANY horizontal overflow */
+      section, footer, nav { max-width: 100vw; overflow-x: hidden; }
+
+      /* Hero stat grid — stack on tiny, row on wider mobile */
+      .stat-grid-mobile {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+        max-width: 100% !important;
+      }
+
+      /* Buttons full-width on tiny screens */
+      .hero-buttons-wrap {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-buttons-wrap a {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Cards — single column */
+      .cards-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Process steps */
+      .process-step-card {
+        padding: 16px 18px !important;
+      }
+
+      /* Comparison table mobile label */
+      .comp-desktop { display: none !important; }
+      .comp-mobile  { display: flex !important; }
+
+      /* Pricing cards — single column */
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+      }
+      /* Popular badge safe on mobile */
+      .pricing-card-popular {
+        margin-top: 20px;
+      }
+
+      /* About founders grid */
+      .founders-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 280px !important;
+      }
+
+      /* Footer grid */
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+
+      /* Demo card padding */
+      .demo-card-inner { padding: 24px 16px !important; }
+
+      /* Section vertical padding tighter */
+      .section-py { padding-top: 60px !important; padding-bottom: 60px !important; }
+
+      /* Inline flex hero cta → column */
+      .flex-hero-cta { flex-direction: column; align-items: stretch; }
+      .flex-hero-cta a { text-align: center; }
+    }
+
+    /* Medium (768–1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .orb-1 { width: 380px; height: 380px; }
+      .orb-2 { width: 300px; height: 300px; }
+      .orb-3 { width: 240px; height: 240px; }
+
+      .stat-number { font-size: 1.8rem; }
+    }
+
+    /* Ensure nothing bleeds on any width */
+    img, video, iframe, svg { max-width: 100%; height: auto; }
   </style>
 </head>
 
@@ -306,19 +440,23 @@
 </script>
 
 <body>
-  <!-- Drifting orbs — always behind everything -->
   <div class="orb-wrap">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
+   
+<div id="loader-screen">
+  <div class="loader"></div>
+</div>
+
+  <img src="logo.png" class="bg-logo" alt="" />
 
   <div id="root"></div>
 
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
-    /* ── Scroll reveal hook ── */
     function useScrollAnim() {
       const ref = useRef(null);
       useEffect(() => {
@@ -336,7 +474,6 @@
       return ref;
     }
 
-    /* ── Animated counter hook ── */
     function useCounter(target, duration = 1800) {
       const [count, setCount] = useState(0);
       const [started, setStarted] = useState(false);
@@ -369,7 +506,7 @@
       document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ────────────────── NAVBAR ────────────────── */
+    /* ── NAVBAR ── */
     function Navbar() {
       const [open, setOpen] = useState(false);
       const [scrolled, setScrolled] = useState(false);
@@ -387,20 +524,20 @@
       ];
       const nav = (e, href) => { e.preventDefault(); setOpen(false); scrollTo(href); };
       return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-blur border-b border-v-border' : ''}`} style={{position:'fixed',top:0,left:0,right:0,zIndex:50}}>
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}} className="flex items-center gap-2.5" style={{textDecoration:'none'}}>
-              <img src="logo.png" alt="Veloro AI" style={{height:34,width:'auto'}} />
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-blur border-b border-v-border' : ''}`} style={{position:'fixed',top:0,left:0,right:0,zIndex:50,width:'100%'}}>
+          <div style={{maxWidth:1280,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',justifyContent:'space-between',height:60}}>
+            <a href="#" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}} style={{display:'flex',alignItems:'center',gap:10,textDecoration:'none',flexShrink:0}}>
+              <img src="logo.png" alt="Veloro AI" style={{height:30,width:'auto'}} />
               <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:17,color:'#e8e8e8',letterSpacing:'-0.01em'}}>Veloro</span>
             </a>
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex" style={{alignItems:'center',gap:28}}>
               {links.map(l => (
-                <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{fontSize:13,color:'#555',textDecoration:'none',transition:'color 0.2s'}}
+                <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{fontSize:13,color:'#555',textDecoration:'none',transition:'color 0.2s',whiteSpace:'nowrap'}}
                   onMouseEnter={e=>e.target.style.color='#e8e8e8'} onMouseLeave={e=>e.target.style.color='#555'}>{l.label}</a>
               ))}
-              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{padding:'10px 22px',fontSize:13}}>Book a Demo</a>
+              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{padding:'10px 22px',fontSize:13,whiteSpace:'nowrap'}}>Book a Demo</a>
             </div>
-            <button className="md:hidden p-2" style={{background:'none',border:'none',cursor:'pointer',color:'#e8e8e8'}} onClick={()=>setOpen(!open)}>
+            <button className="md:hidden" style={{background:'none',border:'none',cursor:'pointer',color:'#e8e8e8',padding:8,display:'flex',alignItems:'center',justifyContent:'center'}} onClick={()=>setOpen(!open)}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 {open ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></>}
               </svg>
@@ -408,9 +545,9 @@
           </div>
           {open && (
             <div className="md:hidden nav-blur border-t border-v-border">
-              <div className="px-6 py-5 flex flex-col gap-4">
-                {links.map(l => <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{color:'#666',textDecoration:'none',fontSize:15}}>{l.label}</a>)}
-                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary text-center" style={{marginTop:8}}>Book a Demo</a>
+              <div style={{padding:'20px 16px',display:'flex',flexDirection:'column',gap:16}}>
+                {links.map(l => <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{color:'#666',textDecoration:'none',fontSize:15,padding:'4px 0'}}>{l.label}</a>)}
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{marginTop:4,textAlign:'center'}}>Book a Demo</a>
               </div>
             </div>
           )}
@@ -418,7 +555,7 @@
       );
     }
 
-    /* ────────────────── STAT COUNTER ────────────────── */
+    /* ── STAT COUNTER ── */
     function StatCounter({ target, suffix, label }) {
       const [ref, count] = useCounter(target);
       return (
@@ -429,42 +566,39 @@
       );
     }
 
-    /* ────────────────── HERO ────────────────── */
+    /* ── HERO ── */
     function Hero() {
       const ref = useScrollAnim();
       return (
-        <section ref={ref} className="relative min-h-screen flex items-center justify-center px-6 pt-28 pb-20 overflow-hidden">
+        <section ref={ref} className="section-py" style={{position:'relative',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 16px 60px',overflow:'hidden'}}>
           <div className="hero-grid"></div>
-          {/* Center glow */}
-          <div style={{position:'absolute',top:'40%',left:'50%',transform:'translate(-50%,-50%)',width:600,height:400,background:'radial-gradient(ellipse,rgba(200,200,200,0.06) 0%,transparent 70%)',pointerEvents:'none'}}></div>
+          <div style={{position:'absolute',top:'40%',left:'50%',transform:'translate(-50%,-50%)',width:'min(600px,90vw)',height:'min(400px,60vw)',background:'radial-gradient(ellipse,rgba(200,200,200,0.06) 0%,transparent 70%)',pointerEvents:'none'}}></div>
 
-          <div className="relative z-10 max-w-4xl mx-auto text-center">
-            {/* Eyebrow */}
-            <div className="fade-in" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'5px 16px',borderRadius:100,border:'1px solid #222',background:'rgba(255,255,255,0.03)',fontSize:11,color:'#888',fontWeight:500,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:32}}>
-              <span style={{width:5,height:5,borderRadius:'50%',background:'#b0b0b0',display:'inline-block'}}></span>
+          <div style={{position:'relative',zIndex:10,maxWidth:760,width:'100%',textAlign:'center',margin:'0 auto'}}>
+            <div className="fade-in" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'5px 16px',borderRadius:100,border:'1px solid #222',background:'rgba(255,255,255,0.03)',fontSize:11,color:'#888',fontWeight:500,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:28,flexWrap:'nowrap'}}>
+              <span style={{width:5,height:5,borderRadius:'50%',background:'#b0b0b0',display:'inline-block',flexShrink:0}}></span>
               AI Automation Agency
             </div>
 
-            <h1 className="fade-in font-display" style={{fontSize:'clamp(2.6rem,6.5vw,5rem)',fontWeight:700,lineHeight:1.05,letterSpacing:'-0.03em',marginBottom:28,transitionDelay:'0.05s'}}>
+            <h1 className="fade-in font-display" style={{fontSize:'clamp(2rem,8vw,5rem)',fontWeight:700,lineHeight:1.08,letterSpacing:'-0.03em',marginBottom:24,transitionDelay:'0.05s'}}>
               <span className="gradient-text">AI Automation</span><br/>
               <span style={{color:'#e8e8e8'}}>Systems for Modern</span><br/>
               <span style={{color:'#e8e8e8'}}>Businesses</span>
             </h1>
 
-            <p className="fade-in" style={{fontSize:'clamp(1rem,2vw,1.15rem)',color:'#666',maxWidth:580,margin:'0 auto 14px',lineHeight:1.75,transitionDelay:'0.1s'}}>
+            <p className="fade-in" style={{fontSize:'clamp(0.9rem,2.5vw,1.1rem)',color:'#666',maxWidth:540,margin:'0 auto 12px',lineHeight:1.75,transitionDelay:'0.1s',padding:'0 4px'}}>
               Veloro builds AI voice agents, receptionists, and workflow automations that help businesses capture leads, book appointments, and reduce manual work.
             </p>
-            <p className="fade-in" style={{fontSize:13,color:'#3a3a3a',maxWidth:460,margin:'0 auto 44px',lineHeight:1.65,transitionDelay:'0.15s'}}>
+            <p className="fade-in" style={{fontSize:13,color:'#3a3a3a',maxWidth:420,margin:'0 auto 36px',lineHeight:1.65,transitionDelay:'0.15s',padding:'0 4px'}}>
               Currently focused on helping dental clinics handle missed calls, after-hours inquiries, appointment booking, and follow-ups.
             </p>
 
-            <div className="fade-in flex flex-col sm:flex-row gap-4 justify-center" style={{transitionDelay:'0.2s'}}>
-              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary">Book a Free Demo</a>
-              <a href="#process" onClick={e=>{e.preventDefault();scrollTo('#process');}} className="btn-secondary">See How It Works</a>
+            <div className="fade-in flex-hero-cta" style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',transitionDelay:'0.2s'}}>
+              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{minWidth:160}}>Book a Free Demo</a>
+              <a href="#process" onClick={e=>{e.preventDefault();scrollTo('#process');}} className="btn-secondary" style={{minWidth:160}}>See How It Works</a>
             </div>
 
-            {/* Stat counters */}
-            <div className="fade-in" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12,marginTop:64,maxWidth:480,marginLeft:'auto',marginRight:'auto',transitionDelay:'0.3s'}}>
+            <div className="fade-in stat-grid-mobile" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginTop:48,maxWidth:420,marginLeft:'auto',marginRight:'auto',transitionDelay:'0.3s'}}>
               <StatCounter target={100} suffix="%" label="Calls Answered" />
               <StatCounter target={24} suffix="/7" label="Always On" />
               <StatCounter target={2} suffix=" min" label="Avg Response" />
@@ -474,7 +608,7 @@
       );
     }
 
-    /* ────────────────── PAIN POINTS ────────────────── */
+    /* ── PAIN POINTS ── */
     function PainPoints() {
       const ref = useScrollAnim();
       const pains = [
@@ -485,18 +619,18 @@
         { t: "Lost appointment opportunities", d: "Every unanswered call, every missed rebook, is direct revenue walking out the door.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
       ];
       return (
-        <section ref={ref} id="problem" className="py-24 md:py-32 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+        <section ref={ref} id="problem" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">The Problem</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Every Missed Call Is a<br/><span className="gradient-text">Missed Appointment</span>
               </h2>
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:16}}>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(260px,100%),1fr))',gap:14}}>
               {pains.map((p,i) => (
-                <div key={i} className="fade-in v-card" style={{padding:'28px',transitionDelay:`${i*0.05}s`}}>
-                  <div style={{width:36,height:36,borderRadius:8,background:'#161616',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:18}}>{p.icon}</div>
+                <div key={i} className="fade-in v-card" style={{padding:'24px 20px',transitionDelay:`${i*0.05}s`}}>
+                  <div style={{width:36,height:36,borderRadius:8,background:'#161616',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16,flexShrink:0}}>{p.icon}</div>
                   <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:8,fontFamily:"'Space Grotesk',sans-serif"}}>{p.t}</h3>
                   <p style={{color:'#555',fontSize:13,lineHeight:1.7}}>{p.d}</p>
                 </div>
@@ -507,7 +641,7 @@
       );
     }
 
-    /* ────────────────── SERVICES ────────────────── */
+    /* ── SERVICES ── */
     function Services() {
       const ref = useScrollAnim();
       const services = [
@@ -517,30 +651,30 @@
         { title:"Workflow Automation", desc:"Custom automation systems that remove repetitive manual work: follow-up sequences, reminder workflows, internal notifications — built for how your business operates.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
       ];
       return (
-        <section ref={ref} id="services" className="py-24 md:py-32 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+        <section ref={ref} id="services" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Services</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 AI Systems That <span className="gradient-text">Do the Work</span>
               </h2>
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(270px,1fr))',gap:16}}>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(270px,100%),1fr))',gap:16}}>
               {services.map((s,i) => (
-                <div key={i} className="fade-in v-card" style={{padding:'32px',transitionDelay:`${i*0.05}s`}}>
-                  <div style={{width:44,height:44,borderRadius:10,background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:20}}>{s.icon}</div>
+                <div key={i} className="fade-in v-card" style={{padding:'28px 22px',transitionDelay:`${i*0.05}s`}}>
+                  <div style={{width:44,height:44,borderRadius:10,background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:18,flexShrink:0}}>{s.icon}</div>
                   <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:16,marginBottom:10,fontFamily:"'Space Grotesk',sans-serif"}}>{s.title}</h3>
                   <p style={{color:'#555',fontSize:13,lineHeight:1.75}}>{s.desc}</p>
                 </div>
               ))}
             </div>
-            <p className="fade-in" style={{color:'#333',fontSize:12,marginTop:36,textAlign:'center',transitionDelay:'0.2s'}}>All systems are built using modern AI and automation tools. Fully customized to your clinic's workflow.</p>
+            <p className="fade-in" style={{color:'#333',fontSize:12,marginTop:32,textAlign:'center',transitionDelay:'0.2s'}}>All systems are built using modern AI and automation tools. Fully customized to your clinic's workflow.</p>
           </div>
         </section>
       );
     }
 
-    /* ────────────────── HOW IT WORKS ────────────────── */
+    /* ── HOW IT WORKS ── */
     function HowItWorks() {
       const ref = useScrollAnim();
       const steps = [
@@ -550,24 +684,24 @@
         { n:"04", t:"Go Live", d:"Your AI system goes live. From day one, every call is answered, every appointment is captured." },
       ];
       return (
-        <section ref={ref} id="process" className="py-24 md:py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
+        <section ref={ref} id="process" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:720,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Process</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 From Setup to Running <span className="gradient-text">in Days</span>
               </h2>
             </div>
-            <div style={{display:'flex',flexDirection:'column',gap:14}}>
+            <div style={{display:'flex',flexDirection:'column',gap:12}}>
               {steps.map((s,i) => (
-                <div key={i} className="fade-in" style={{display:'flex',gap:20,alignItems:'stretch',transitionDelay:`${i*0.07}s`}}>
-                  <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:0,flexShrink:0}}>
-                    <div style={{width:44,height:44,borderRadius:'50%',background:'#101010',border:'1px solid #2a2a2a',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-                      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:12,background:'linear-gradient(135deg,#fff 0%,#888 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{s.n}</span>
+                <div key={i} className="fade-in" style={{display:'flex',gap:16,alignItems:'stretch',transitionDelay:`${i*0.07}s`}}>
+                  <div style={{display:'flex',flexDirection:'column',alignItems:'center',flexShrink:0}}>
+                    <div style={{width:40,height:40,borderRadius:'50%',background:'#101010',border:'1px solid #2a2a2a',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:11,background:'linear-gradient(135deg,#fff 0%,#888 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{s.n}</span>
                     </div>
-                    {i < steps.length-1 && <div style={{width:1,flex:1,background:'linear-gradient(to bottom,#222,transparent)',marginTop:6}}></div>}
+                    {i < steps.length-1 && <div style={{width:1,flex:1,background:'linear-gradient(to bottom,#222,transparent)',marginTop:4}}></div>}
                   </div>
-                  <div className="v-card" style={{padding:'20px 24px',flex:1,marginBottom: i < steps.length-1 ? 0 : 0}}>
+                  <div className="v-card process-step-card" style={{padding:'18px 20px',flex:1,minWidth:0}}>
                     <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:6,fontFamily:"'Space Grotesk',sans-serif"}}>{s.t}</h3>
                     <p style={{color:'#555',fontSize:13,lineHeight:1.7}}>{s.d}</p>
                   </div>
@@ -579,7 +713,7 @@
       );
     }
 
-    /* ────────────────── DEMO ────────────────── */
+    /* ── DEMO ── */
     function DemoSection() {
       const videoRef = useRef(null);
       const [isPlaying, setIsPlaying] = useState(false);
@@ -590,22 +724,22 @@
         else { videoRef.current.pause(); setIsPlaying(false); }
       };
       return (
-        <section ref={ref} id="demo" className="py-24 md:py-32 px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
+        <section ref={ref} id="demo" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:680,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">Live Demo</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Hear It for <span className="gradient-text">Yourself</span>
               </h2>
             </div>
-            <div className="fade-in v-card" style={{padding:'40px',textAlign:'center'}}>
-              <div className="play-btn mb-6" onClick={toggleVideo}>
+            <div className="fade-in v-card demo-card-inner" style={{padding:'32px 20px',textAlign:'center'}}>
+              <div className="play-btn" style={{marginBottom:20}} onClick={toggleVideo}>
                 {isPlaying
                   ? <svg width="26" height="26" viewBox="0 0 24 24" fill="#080808"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                   : <svg width="26" height="26" viewBox="0 0 24 24" fill="#080808"><polygon points="6 3 20 12 6 21 6 3"/></svg>}
               </div>
-              <div style={{borderRadius:10,overflow:'hidden',border:'1px solid #1e1e1e',marginBottom:24}}>
-                <video ref={videoRef} controls style={{width:'100%'}} poster="thumbnail.png"
+              <div style={{borderRadius:10,overflow:'hidden',border:'1px solid #1e1e1e',marginBottom:20}}>
+                <video ref={videoRef} controls style={{width:'100%',display:'block'}} poster="thumbnail.png"
                   onPlay={()=>setIsPlaying(true)} onPause={()=>setIsPlaying(false)} onEnded={()=>setIsPlaying(false)}>
                   <source src="demovideo.mp4" type="video/mp4"/>
                   Your browser does not support the video tag.
@@ -618,7 +752,7 @@
       );
     }
 
-    /* ────────────────── USE CASES ────────────────── */
+    /* ── USE CASES ── */
     function UseCases() {
       const ref = useScrollAnim();
       const cases = [
@@ -630,17 +764,17 @@
         { s:"Staff forgets to send follow-up", r:"Automated workflow sends it on schedule, every time." },
       ];
       return (
-        <section ref={ref} id="usecases" className="py-24 md:py-32 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+        <section ref={ref} id="usecases" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Use Cases</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Built for Real <span className="gradient-text">Clinic Situations</span>
               </h2>
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:14}}>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:12}}>
               {cases.map((c,i) => (
-                <div key={i} className="fade-in v-card" style={{padding:'24px',transitionDelay:`${i*0.04}s`}}>
+                <div key={i} className="fade-in v-card" style={{padding:'20px 18px',transitionDelay:`${i*0.04}s`}}>
                   <p style={{color:'#c0c0c0',fontWeight:500,fontSize:14,marginBottom:10,lineHeight:1.5}}>{c.s}</p>
                   <p style={{color:'#444',fontSize:13,lineHeight:1.65}}>→ {c.r}</p>
                 </div>
@@ -651,7 +785,7 @@
       );
     }
 
-    /* ────────────────── COMPARISON ────────────────── */
+    /* ── COMPARISON ── */
     function Comparison() {
       const ref = useScrollAnim();
       const rows = [
@@ -670,34 +804,36 @@
         return <span style={{color:'#444',fontSize:12,fontStyle:'italic'}}>Sometimes</span>;
       };
       return (
-        <section ref={ref} id="comparison" className="py-24 md:py-32 px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-6">
+        <section ref={ref} id="comparison" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:760,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:16}}>
               <span className="fade-in section-label">Why Veloro</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Not a Replacement. <span className="gradient-text">An Upgrade.</span>
               </h2>
             </div>
-            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:48,fontStyle:'italic'}}>Veloro is designed to support your front desk — not replace it.</p>
-            {/* Desktop */}
-            <div className="fade-in v-card overflow-hidden hidden md:block">
-              <div style={{display:'grid',gridTemplateColumns:'1fr 160px 160px',borderBottom:'1px solid #1e1e1e'}}>
-                <div style={{padding:'16px 24px'}}></div>
-                <div style={{padding:'16px 24px',textAlign:'center',borderLeft:'1px solid #1e1e1e'}}><span style={{color:'#444',fontSize:12,fontWeight:600}}>Human Receptionist</span></div>
-                <div style={{padding:'16px 24px',textAlign:'center',borderLeft:'1px solid #1e1e1e',background:'rgba(255,255,255,0.02)'}}><span className="gradient-text" style={{fontSize:12,fontWeight:700,fontFamily:"'Space Grotesk',sans-serif"}}>Veloro AI</span></div>
+            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic'}}>Veloro is designed to support your front desk — not replace it.</p>
+
+            {/* Desktop table */}
+            <div className="fade-in v-card overflow-hidden comp-desktop" style={{overflowX:'auto'}}>
+              <div style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:'1px solid #1e1e1e'}}>
+                <div style={{padding:'14px 20px'}}></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e'}}><span style={{color:'#444',fontSize:12,fontWeight:600}}>Human Receptionist</span></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e',background:'rgba(255,255,255,0.02)'}}><span className="gradient-text" style={{fontSize:12,fontWeight:700,fontFamily:"'Space Grotesk',sans-serif"}}>Veloro AI</span></div>
               </div>
               {rows.map((r,i) => (
-                <div key={i} style={{display:'grid',gridTemplateColumns:'1fr 160px 160px',borderBottom:i<rows.length-1?'1px solid #141414':'none'}}>
-                  <div style={{padding:'13px 24px',fontSize:13,color:'#aaa'}}>{r.f}</div>
-                  <div style={{padding:'13px 24px',textAlign:'center',borderLeft:'1px solid #141414',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.h}/></div>
-                  <div style={{padding:'13px 24px',textAlign:'center',borderLeft:'1px solid #141414',background:'rgba(255,255,255,0.01)',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.v}/></div>
+                <div key={i} style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:i<rows.length-1?'1px solid #141414':'none'}}>
+                  <div style={{padding:'12px 20px',fontSize:13,color:'#aaa'}}>{r.f}</div>
+                  <div style={{padding:'12px 20px',textAlign:'center',borderLeft:'1px solid #141414',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.h}/></div>
+                  <div style={{padding:'12px 20px',textAlign:'center',borderLeft:'1px solid #141414',background:'rgba(255,255,255,0.01)',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.v}/></div>
                 </div>
               ))}
             </div>
-            {/* Mobile */}
-            <div className="fade-in md:hidden" style={{display:'flex',flexDirection:'column',gap:10}}>
+
+            {/* Mobile cards */}
+            <div className="fade-in comp-mobile" style={{display:'none',flexDirection:'column',gap:10}}>
               {rows.map((r,i) => (
-                <div key={i} className="v-card" style={{padding:'18px 20px'}}>
+                <div key={i} className="v-card" style={{padding:'16px 18px'}}>
                   <p style={{color:'#bbb',fontWeight:500,fontSize:13,marginBottom:10}}>{r.f}</p>
                   <div style={{display:'flex',gap:24}}>
                     <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{color:'#444',fontSize:11}}>Human</span><Cell val={r.h}/></div>
@@ -711,56 +847,56 @@
       );
     }
 
-    /* ────────────────── PRICING ────────────────── */
+    /* ── PRICING ── */
     function Pricing() {
       const ref = useScrollAnim();
       return (
-        <section ref={ref} id="pricing" className="py-24 md:py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-6">
+        <section ref={ref} id="pricing" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:900,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:16}}>
               <span className="fade-in section-label">Pricing</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Simple, Transparent <span className="gradient-text">Pricing</span>
               </h2>
             </div>
-            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:48,fontStyle:'italic'}}>Pricing shown is a starting estimate. Final pricing depends on your clinic's needs. Book a call to get a custom quote.</p>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}}>
+            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic',padding:'0 8px'}}>Pricing shown is a starting estimate. Final pricing depends on your clinic's needs. Book a call to get a custom quote.</p>
+            <div className="pricing-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:20}}>
               {/* Starter */}
-              <div className="fade-in v-card" style={{padding:'36px 32px',display:'flex',flexDirection:'column'}}>
+              <div className="fade-in v-card" style={{padding:'32px 24px',display:'flex',flexDirection:'column'}}>
                 <p style={{color:'#555',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Starter</p>
-                <div style={{marginBottom:24}}>
-                  <span className="gradient-text font-display" style={{fontSize:'2.4rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
+                <div style={{marginBottom:20}}>
+                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
                   <span style={{color:'#444',fontSize:13}}>/mo</span>
                 </div>
-                <div style={{height:1,background:'#1a1a1a',marginBottom:24}}></div>
-                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:28,display:'flex',flexDirection:'column',gap:10}}>
+                <div style={{height:1,background:'#1a1a1a',marginBottom:20}}></div>
+                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
                   {["AI Voice Receptionist (inbound calls)","24/7 availability","Appointment booking & cancellations","Calendar integration","Email support"].map((f,i) => (
                     <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#666'}}>
-                      <span style={{color:'#888',marginTop:1}}>✓</span>{f}
+                      <span style={{color:'#888',marginTop:1,flexShrink:0}}>✓</span>{f}
                     </li>
                   ))}
                 </ul>
-                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-secondary text-center">Book a Demo</a>
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{textAlign:'center'}}>Book a Demo</a>
               </div>
               {/* Growth */}
-              <div className="fade-in v-card" style={{padding:'36px 32px',display:'flex',flexDirection:'column',position:'relative',border:'1px solid #2e2e2e',boxShadow:'0 0 40px rgba(180,180,180,0.04)'}}>
-                <div style={{position:'absolute',top:-13,left:'50%',transform:'translateX(-50%)'}}>
+              <div className="fade-in v-card pricing-card-popular" style={{padding:'32px 24px',display:'flex',flexDirection:'column',position:'relative',border:'1px solid #2e2e2e',boxShadow:'0 0 40px rgba(180,180,180,0.04)'}}>
+                <div style={{position:'absolute',top:-13,left:'50%',transform:'translateX(-50%)',whiteSpace:'nowrap'}}>
                   <span className="popular-badge">Most Popular</span>
                 </div>
                 <p style={{color:'#555',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Growth</p>
-                <div style={{marginBottom:24}}>
-                  <span className="gradient-text font-display" style={{fontSize:'2.4rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
+                <div style={{marginBottom:20}}>
+                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
                   <span style={{color:'#444',fontSize:13}}>/mo</span>
                 </div>
-                <div style={{height:1,background:'#2a2a2a',marginBottom:24}}></div>
-                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:28,display:'flex',flexDirection:'column',gap:10}}>
+                <div style={{height:1,background:'#2a2a2a',marginBottom:20}}></div>
+                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
                   {["Everything in Starter","After-hours call handling","Rescheduling automation","Follow-up workflow automation","Priority support","Monthly performance review"].map((f,i) => (
                     <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#666'}}>
-                      <span style={{color:'#888',marginTop:1}}>✓</span>{f}
+                      <span style={{color:'#888',marginTop:1,flexShrink:0}}>✓</span>{f}
                     </li>
                   ))}
                 </ul>
-                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary text-center">Book a Demo</a>
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{textAlign:'center'}}>Book a Demo</a>
               </div>
             </div>
           </div>
@@ -768,28 +904,28 @@
       );
     }
 
-    /* ────────────────── ABOUT ────────────────── */
+    /* ── ABOUT ── */
     function About() {
       const ref = useScrollAnim();
       return (
-        <section ref={ref} id="about" className="py-24 md:py-32 px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
+        <section ref={ref} id="about" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:760,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">About</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Built by People Who Take<br/><span className="gradient-text">Automation Seriously</span>
               </h2>
             </div>
-            <p className="fade-in" style={{color:'#555',fontSize:15,lineHeight:1.85,textAlign:'center',maxWidth:560,margin:'0 auto 52px'}}>
+            <p className="fade-in" style={{color:'#555',fontSize:15,lineHeight:1.85,textAlign:'center',maxWidth:540,margin:'0 auto 44px',padding:'0 4px'}}>
               Veloro is an AI automation agency focused on building practical systems that actually work. We combine AI voice technology and workflow automation to help businesses stop losing opportunities to missed calls and manual processes. We're not a software product. We build custom systems for your specific workflow.
             </p>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:14,maxWidth:460,margin:'0 auto'}}>
+            <div className="founders-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(200px,100%),1fr))',gap:14,maxWidth:440,margin:'0 auto'}}>
               {[
                 { name:"Muhammad Mohsin", url:"https://www.linkedin.com/in/muhammad-mohsin-ai/" },
                 { name:"Malik Subhan", url:"https://www.linkedin.com/in/malik-subhan-469224414/" },
               ].map((f,i) => (
-                <a key={i} href={f.url} target="_blank" rel="noopener noreferrer" className="fade-in v-card" style={{padding:'24px',textAlign:'center',textDecoration:'none',transitionDelay:`${i*0.06}s`}}>
-                  <div style={{width:44,height:44,borderRadius:'50%',background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+                <a key={i} href={f.url} target="_blank" rel="noopener noreferrer" className="fade-in v-card" style={{padding:'22px 18px',textAlign:'center',textDecoration:'none',transitionDelay:`${i*0.06}s`}}>
+                  <div style={{width:44,height:44,borderRadius:'50%',background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 12px'}}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   </div>
                   <h4 style={{color:'#e0e0e0',fontWeight:600,fontSize:14,fontFamily:"'Space Grotesk',sans-serif"}}>{f.name}</h4>
@@ -802,7 +938,7 @@
       );
     }
 
-    /* ────────────────── FAQ ────────────────── */
+    /* ── FAQ ── */
     function FAQ() {
       const ref = useScrollAnim();
       const [open, setOpen] = useState(null);
@@ -814,25 +950,25 @@
         { q:"What if we already have a front desk team?", a:"Veloro is built to support your team, not replace them. It handles overflow, after-hours calls, and automation so your staff can focus on in-clinic patient care." },
       ];
       return (
-        <section ref={ref} id="faq" className="py-24 md:py-32 px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-16">
+        <section ref={ref} id="faq" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:680,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">FAQ</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Common <span className="gradient-text">Questions</span>
               </h2>
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
               {faqs.map((f,i) => (
                 <div key={i} className="fade-in v-card" style={{overflow:'hidden',transitionDelay:`${i*0.04}s`,borderColor:open===i?'#2e2e2e':'#1e1e1e'}}>
-                  <button style={{width:'100%',textAlign:'left',padding:'20px 24px',background:'none',border:'none',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,color:'#c8c8c8',fontSize:14,fontWeight:500,fontFamily:"'Space Grotesk',sans-serif"}} onClick={()=>setOpen(open===i?null:i)}>
-                    {f.q}
+                  <button style={{width:'100%',textAlign:'left',padding:'18px 20px',background:'none',border:'none',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,color:'#c8c8c8',fontSize:14,fontWeight:500,fontFamily:"'Space Grotesk',sans-serif"}} onClick={()=>setOpen(open===i?null:i)}>
+                    <span style={{flex:1,minWidth:0}}>{f.q}</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,transition:'transform 0.2s',transform:open===i?'rotate(180deg)':'rotate(0deg)'}}>
                       <polyline points="6 9 12 15 18 9"/>
                     </svg>
                   </button>
-                  <div style={{maxHeight:open===i?180:0,overflow:'hidden',transition:'max-height 0.3s ease, opacity 0.3s ease',opacity:open===i?1:0}}>
-                    <div style={{padding:'0 24px 20px',color:'#555',fontSize:13,lineHeight:1.75}}>{f.a}</div>
+                  <div style={{maxHeight:open===i?200:0,overflow:'hidden',transition:'max-height 0.3s ease, opacity 0.3s ease',opacity:open===i?1:0}}>
+                    <div style={{padding:'0 20px 18px',color:'#555',fontSize:13,lineHeight:1.75}}>{f.a}</div>
                   </div>
                 </div>
               ))}
@@ -842,7 +978,7 @@
       );
     }
 
-    /* ────────────────── CONTACT ────────────────── */
+    /* ── CONTACT ── */
     function Contact() {
       const ref = useScrollAnim();
       const [form, setForm] = useState({ name:'', company:'', email:'', message:'' });
@@ -862,11 +998,11 @@
         } catch { setStatus('error'); }
       };
       return (
-        <section ref={ref} id="contact" className="py-24 md:py-32 px-6">
-          <div className="max-w-xl mx-auto">
-            <div className="text-center mb-12">
+        <section ref={ref} id="contact" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:520,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">Contact</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Ready to Stop<br/><span className="gradient-text">Missing Calls?</span>
               </h2>
             </div>
@@ -881,7 +1017,7 @@
               {status==='success' && <p style={{color:'#a0a0a0',fontSize:13,textAlign:'center'}}>Message sent! We'll get back to you soon.</p>}
               {status==='error' && <p style={{color:'#666',fontSize:13,textAlign:'center'}}>Something went wrong. Email us at teamveloro@gmail.com</p>}
             </form>
-            <p className="fade-in" style={{textAlign:'center',color:'#444',fontSize:13,marginTop:24}}>
+            <p className="fade-in" style={{textAlign:'center',color:'#444',fontSize:13,marginTop:20}}>
               Or book directly: <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="gradient-text" style={{fontWeight:600,textDecoration:'none'}}>Book a Free Demo →</a>
             </p>
           </div>
@@ -889,26 +1025,26 @@
       );
     }
 
-    /* ────────────────── FINAL CTA ────────────────── */
+    /* ── FINAL CTA ── */
     function FinalCTA() {
       const ref = useScrollAnim();
       return (
-        <section ref={ref} className="py-24 md:py-32 px-6 relative overflow-hidden">
+        <section ref={ref} className="section-py" style={{padding:'64px 16px',position:'relative',overflow:'hidden'}}>
           <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at center,rgba(160,160,160,0.04) 0%,transparent 65%)',pointerEvents:'none'}}></div>
           <div style={{position:'absolute',top:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#222,transparent)'}}></div>
           <div style={{position:'absolute',bottom:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#1a1a1a,transparent)'}}></div>
-          <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <h2 className="fade-in font-display" style={{fontSize:'clamp(2rem,5vw,3.4rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.03em',marginBottom:18,lineHeight:1.05}}>
+          <div style={{position:'relative',zIndex:10,maxWidth:680,margin:'0 auto',textAlign:'center'}}>
+            <h2 className="fade-in font-display" style={{fontSize:'clamp(1.7rem,6vw,3.4rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.03em',marginBottom:16,lineHeight:1.1}}>
               Your Next Patient Shouldn't<br/><span className="gradient-text">Go to Voicemail.</span>
             </h2>
-            <p className="fade-in" style={{color:'#444',fontSize:16,marginBottom:40,lineHeight:1.75,transitionDelay:'0.1s'}}>Book a free demo and see exactly how Veloro can be set up for your clinic.</p>
-            <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="fade-in btn-primary" style={{fontSize:15,padding:'15px 36px',transitionDelay:'0.15s'}}>Book a Free Demo</a>
+            <p className="fade-in" style={{color:'#444',fontSize:15,marginBottom:36,lineHeight:1.75,transitionDelay:'0.1s',padding:'0 8px'}}>Book a free demo and see exactly how Veloro can be set up for your clinic.</p>
+            <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="fade-in btn-primary" style={{fontSize:15,padding:'14px 32px',transitionDelay:'0.15s'}}>Book a Free Demo</a>
           </div>
         </section>
       );
     }
 
-    /* ────────────────── FOOTER ────────────────── */
+    /* ── FOOTER ── */
     function Footer() {
       const links = [
         { label:'Services', href:'#services' },
@@ -918,27 +1054,27 @@
         { label:'Contact', href:'#contact' },
       ];
       return (
-        <footer style={{borderTop:'1px solid #141414',padding:'48px 24px 28px',background:'#050505'}}>
-          <div className="max-w-6xl mx-auto">
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))',gap:36,marginBottom:40}}>
+        <footer style={{borderTop:'1px solid #141414',padding:'44px 16px 24px',background:'#050505'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div className="footer-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(180px,100%),1fr))',gap:32,marginBottom:36}}>
               <div>
                 <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
-                  <img src="logo.png" alt="Veloro AI" style={{height:30,width:'auto'}}/>
+                  <img src="logo.png" alt="Veloro AI" style={{height:28,width:'auto'}}/>
                   <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:16,color:'#e0e0e0'}}>Veloro</span>
                 </div>
                 <p style={{color:'#333',fontSize:13,lineHeight:1.65,maxWidth:200}}>AI Automation Systems for Modern Businesses</p>
               </div>
               <div>
-                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:16,fontFamily:"'Space Grotesk',sans-serif"}}>Quick Links</h4>
+                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Quick Links</h4>
                 <div style={{display:'flex',flexDirection:'column',gap:10}}>
                   {links.map(l => <a key={l.href} href={l.href} onClick={e=>{e.preventDefault();scrollTo(l.href);}} style={{color:'#444',fontSize:13,textDecoration:'none',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#444'}>{l.label}</a>)}
                 </div>
               </div>
               <div>
-                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:16,fontFamily:"'Space Grotesk',sans-serif"}}>Get in Touch</h4>
-                <a href="mailto:teamveloro@gmail.com" style={{color:'#444',fontSize:13,textDecoration:'none',display:'block',marginBottom:16}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#444'}>teamveloro@gmail.com</a>
+                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Get in Touch</h4>
+                <a href="mailto:teamveloro@gmail.com" style={{color:'#444',fontSize:13,textDecoration:'none',display:'block',marginBottom:14,wordBreak:'break-all'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#444'}>teamveloro@gmail.com</a>
                 <div style={{display:'flex',gap:14}}>
-                  <a href="https://www.instagram.com/veloro_ai/" target="_blank" rel="noopener noreferrer" style={{color:'#333',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#333'} aria-label="Instagram">
+                  <a href="https://www.instagram.com/velorohq/" target="_blank" rel="noopener noreferrer" style={{color:'#333',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#333'} aria-label="Instagram">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                   </a>
                   <a href="https://www.linkedin.com/company/veloroaims" target="_blank" rel="noopener noreferrer" style={{color:'#333',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#333'} aria-label="LinkedIn">
@@ -947,7 +1083,7 @@
                 </div>
               </div>
             </div>
-            <div style={{borderTop:'1px solid #111',paddingTop:20,textAlign:'center'}}>
+            <div style={{borderTop:'1px solid #111',paddingTop:18,textAlign:'center'}}>
               <p style={{color:'#2a2a2a',fontSize:12}}>© 2025 Veloro AI. All rights reserved.</p>
             </div>
           </div>
@@ -955,10 +1091,10 @@
       );
     }
 
-    /* ────────────────── APP ────────────────── */
+    /* ── APP ── */
     function App() {
       return (
-        <div style={{background:'#080808',minHeight:'100vh'}}>
+        <div style={{background:'#080808',minHeight:'100vh',width:'100%',overflowX:'hidden'}}>
           <Navbar/>
           <Hero/>
           <PainPoints/>
@@ -980,5 +1116,21 @@
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App/>);
   </script>
+
+  <script>
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader-screen");
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+      loader.remove();
+    }, 500);
+  }, 500);
+});
+</script>
+
+
 </body>
 </html>

@@ -145,32 +145,27 @@
     }
 
     /* Loading screen */
+    #loader-screen {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity .5s ease;
+    }
+    .loader {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,.15);
+      border-top-color: #fff;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    #loader-screen{
-  position:fixed;
-  inset:0;
-  background:#080808;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-  transition:opacity .5s ease;
-}
-
-.loader{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  border:5px solid rgba(255,255,255,.15);
-  border-top-color:#fff;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-    /* ── Orbs — capped size on small screens ── */
+    /* ── Orbs ── */
     .orb-wrap {
       position: fixed;
       inset: 0;
@@ -297,131 +292,130 @@
     ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
     ::selection { background: rgba(180,180,180,0.2); color: #fff; }
 
-    /* ── BG logo — fully responsive ── */
-    .bg-logo {
+    /* ══════════════════════════════════════════
+       3D ROTATING BACKGROUND LOGO
+    ══════════════════════════════════════════ */
+    .bg-logo-wrap {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      width: min(600px, 90vw);
-      height: min(600px, 90vw);
-      opacity: 0.04;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
-      animation: spin-logo 30s linear infinite;
-      transform-origin: center center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    @keyframes spin-logo {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    .bg-logo-scene {
+      /* 3D perspective container */
+      perspective: 1400px;
+      width: min(620px, 88vw);
+      height: min(620px, 88vw);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .bg-logo-obj {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      /* Slow Y-axis spin with drifting X tilt for 3D feel */
+      animation: spin3d 32s linear infinite;
+    }
+    /* Each layer = one copy of the logo, offset back on Z axis.
+       Together they create the illusion of thickness / extrusion. */
+    .bg-logo-obj .layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-logo-obj .layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    /* Front face — most visible */
+    .bg-logo-obj .layer:nth-child(1) { transform: translateZ(0px);   opacity: 0.052; }
+    /* Each layer behind dims — creates shadow/depth effect */
+    .bg-logo-obj .layer:nth-child(2) { transform: translateZ(-8px);  opacity: 0.038; filter: brightness(0.70); }
+    .bg-logo-obj .layer:nth-child(3) { transform: translateZ(-16px); opacity: 0.026; filter: brightness(0.50); }
+    .bg-logo-obj .layer:nth-child(4) { transform: translateZ(-24px); opacity: 0.016; filter: brightness(0.34); }
+    .bg-logo-obj .layer:nth-child(5) { transform: translateZ(-32px); opacity: 0.009; filter: brightness(0.20); }
+    .bg-logo-obj .layer:nth-child(6) { transform: translateZ(-40px); opacity: 0.004; filter: brightness(0.08); }
+
+    @keyframes spin3d {
+      0%   { transform: rotateY(0deg)   rotateX(10deg); }
+      25%  { transform: rotateY(90deg)  rotateX(4deg);  }
+      50%  { transform: rotateY(180deg) rotateX(14deg); }
+      75%  { transform: rotateY(270deg) rotateX(6deg);  }
+      100% { transform: rotateY(360deg) rotateX(10deg); }
     }
 
-    /* ─────────────────────────────────────────
-       RESPONSIVE OVERRIDES — nothing else changed
-       ───────────────────────────────────────── */
+    /* Conic shimmer ring — rotates in sync, mimics light catching metal */
+    .bg-logo-shimmer {
+      position: absolute;
+      inset: -18%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(220,220,220,0.032) 50deg,
+        transparent 100deg,
+        rgba(220,220,220,0.016) 185deg,
+        transparent 240deg
+      );
+      animation: shimmer-rot 32s linear infinite;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    @keyframes shimmer-rot {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
 
-    /* Small phones (≤360px, e.g. Nokia) */
+    /* ── Responsive overrides ── */
+    @media (max-width: 480px) {
+      .bg-logo-scene { width: min(280px, 86vw); height: min(280px, 86vw); }
+    }
     @media (max-width: 360px) {
       .orb-1 { width: 200px; height: 200px; filter: blur(50px); }
       .orb-2 { width: 180px; height: 180px; filter: blur(50px); }
       .orb-3 { width: 150px; height: 150px; filter: blur(50px); }
-
-      .btn-primary, .btn-secondary {
-        padding: 11px 18px;
-        font-size: 13px;
-        width: 100%;
-        text-align: center;
-        display: block;
-      }
-
+      .btn-primary, .btn-secondary { padding: 11px 18px; font-size: 13px; width: 100%; text-align: center; display: block; }
       .stat-card { padding: 12px 8px; }
       .stat-number { font-size: 1.25rem; }
       .stat-label { font-size: 10px; }
-
       .hero-grid { background-size: 40px 40px; }
     }
-
-    /* All mobile (≤767px) */
     @media (max-width: 767px) {
       .orb-1 { width: 260px; height: 260px; filter: blur(60px); }
       .orb-2 { width: 220px; height: 220px; filter: blur(60px); }
       .orb-3 { width: 180px; height: 180px; filter: blur(60px); }
-
-      /* Prevent ANY horizontal overflow */
       section, footer, nav { max-width: 100vw; overflow-x: hidden; }
-
-      /* Hero stat grid — stack on tiny, row on wider mobile */
-      .stat-grid-mobile {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        max-width: 100% !important;
-      }
-
-      /* Buttons full-width on tiny screens */
-      .hero-buttons-wrap {
-        flex-direction: column;
-        width: 100%;
-      }
-      .hero-buttons-wrap a {
-        width: 100%;
-        text-align: center;
-      }
-
-      /* Cards — single column */
-      .cards-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      /* Process steps */
-      .process-step-card {
-        padding: 16px 18px !important;
-      }
-
-      /* Comparison table mobile label */
+      .stat-grid-mobile { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; max-width: 100% !important; }
+      .hero-buttons-wrap { flex-direction: column; width: 100%; }
+      .hero-buttons-wrap a { width: 100%; text-align: center; }
+      .cards-grid { grid-template-columns: 1fr !important; }
+      .process-step-card { padding: 16px 18px !important; }
       .comp-desktop { display: none !important; }
       .comp-mobile  { display: flex !important; }
-
-      /* Pricing cards — single column */
-      .pricing-grid {
-        grid-template-columns: 1fr !important;
-      }
-      /* Popular badge safe on mobile */
-      .pricing-card-popular {
-        margin-top: 20px;
-      }
-
-      /* About founders grid */
-      .founders-grid {
-        grid-template-columns: 1fr !important;
-        max-width: 280px !important;
-      }
-
-      /* Footer grid */
-      .footer-grid {
-        grid-template-columns: 1fr !important;
-        gap: 28px !important;
-      }
-
-      /* Demo card padding */
+      .pricing-grid { grid-template-columns: 1fr !important; }
+      .pricing-card-popular { margin-top: 20px; }
+      .founders-grid { grid-template-columns: 1fr !important; max-width: 280px !important; }
+      .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
       .demo-card-inner { padding: 24px 16px !important; }
-
-      /* Section vertical padding tighter */
       .section-py { padding-top: 60px !important; padding-bottom: 60px !important; }
-
-      /* Inline flex hero cta → column */
       .flex-hero-cta { flex-direction: column; align-items: stretch; }
       .flex-hero-cta a { text-align: center; }
     }
-
-    /* Medium (768–1023px) */
     @media (min-width: 768px) and (max-width: 1023px) {
       .orb-1 { width: 380px; height: 380px; }
       .orb-2 { width: 300px; height: 300px; }
       .orb-3 { width: 240px; height: 240px; }
-
       .stat-number { font-size: 1.8rem; }
     }
-
-    /* Ensure nothing bleeds on any width */
     img, video, iframe, svg { max-width: 100%; height: auto; }
   </style>
 </head>
@@ -440,17 +434,33 @@
 </script>
 
 <body>
+
+  <!-- Drifting silver orbs -->
   <div class="orb-wrap">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
-   
-<div id="loader-screen">
-  <div class="loader"></div>
-</div>
 
-  <img src="logo.png" class="bg-logo" alt="" />
+  <!-- 3D rotating logo — fixed behind everything -->
+  <div class="bg-logo-wrap">
+    <div class="bg-logo-scene">
+      <div class="bg-logo-obj">
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+      </div>
+      <div class="bg-logo-shimmer"></div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader-screen">
+    <div class="loader"></div>
+  </div>
 
   <div id="root"></div>
 
@@ -506,8 +516,14 @@
       document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ── NAVBAR ── */
     function Navbar() {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+useEffect(() => {
+  const h = () => setIsMobile(window.innerWidth < 768);
+  window.addEventListener('resize', h);
+  return () => window.removeEventListener('resize', h);
+}, []);
+
       const [open, setOpen] = useState(false);
       const [scrolled, setScrolled] = useState(false);
       useEffect(() => {
@@ -530,14 +546,14 @@
               <img src="logo.png" alt="Veloro AI" style={{height:30,width:'auto'}} />
               <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:17,color:'#e8e8e8',letterSpacing:'-0.01em'}}>Veloro</span>
             </a>
-            <div className="hidden md:flex" style={{alignItems:'center',gap:28}}>
+            <div style={{display: isMobile ? 'none' : 'flex', alignItems:'center', gap:28}}>
               {links.map(l => (
                 <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{fontSize:13,color:'#555',textDecoration:'none',transition:'color 0.2s',whiteSpace:'nowrap'}}
                   onMouseEnter={e=>e.target.style.color='#e8e8e8'} onMouseLeave={e=>e.target.style.color='#555'}>{l.label}</a>
               ))}
               <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{padding:'10px 22px',fontSize:13,whiteSpace:'nowrap'}}>Book a Demo</a>
             </div>
-            <button className="md:hidden" style={{background:'none',border:'none',cursor:'pointer',color:'#e8e8e8',padding:8,display:'flex',alignItems:'center',justifyContent:'center'}} onClick={()=>setOpen(!open)}>
+            <button style={{display: isMobile ? 'flex' : 'none', background:'none', border:'none', cursor:'pointer', color:'#e8e8e8', padding:8, alignItems:'center', justifyContent:'center'}} onClick={()=>setOpen(!open)}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 {open ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></>}
               </svg>
@@ -555,7 +571,6 @@
       );
     }
 
-    /* ── STAT COUNTER ── */
     function StatCounter({ target, suffix, label }) {
       const [ref, count] = useCounter(target);
       return (
@@ -566,38 +581,32 @@
       );
     }
 
-    /* ── HERO ── */
     function Hero() {
       const ref = useScrollAnim();
       return (
         <section ref={ref} className="section-py" style={{position:'relative',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 16px 60px',overflow:'hidden'}}>
           <div className="hero-grid"></div>
           <div style={{position:'absolute',top:'40%',left:'50%',transform:'translate(-50%,-50%)',width:'min(600px,90vw)',height:'min(400px,60vw)',background:'radial-gradient(ellipse,rgba(200,200,200,0.06) 0%,transparent 70%)',pointerEvents:'none'}}></div>
-
           <div style={{position:'relative',zIndex:10,maxWidth:760,width:'100%',textAlign:'center',margin:'0 auto'}}>
             <div className="fade-in" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'5px 16px',borderRadius:100,border:'1px solid #222',background:'rgba(255,255,255,0.03)',fontSize:11,color:'#888',fontWeight:500,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:28,flexWrap:'nowrap'}}>
               <span style={{width:5,height:5,borderRadius:'50%',background:'#b0b0b0',display:'inline-block',flexShrink:0}}></span>
               AI Automation Agency
             </div>
-
             <h1 className="fade-in font-display" style={{fontSize:'clamp(2rem,8vw,5rem)',fontWeight:700,lineHeight:1.08,letterSpacing:'-0.03em',marginBottom:24,transitionDelay:'0.05s'}}>
               <span className="gradient-text">AI Automation</span><br/>
               <span style={{color:'#e8e8e8'}}>Systems for Modern</span><br/>
               <span style={{color:'#e8e8e8'}}>Businesses</span>
             </h1>
-
             <p className="fade-in" style={{fontSize:'clamp(0.9rem,2.5vw,1.1rem)',color:'#666',maxWidth:540,margin:'0 auto 12px',lineHeight:1.75,transitionDelay:'0.1s',padding:'0 4px'}}>
               Veloro builds AI voice agents, receptionists, and workflow automations that help businesses capture leads, book appointments, and reduce manual work.
             </p>
             <p className="fade-in" style={{fontSize:13,color:'#3a3a3a',maxWidth:420,margin:'0 auto 36px',lineHeight:1.65,transitionDelay:'0.15s',padding:'0 4px'}}>
               Currently focused on helping dental clinics handle missed calls, after-hours inquiries, appointment booking, and follow-ups.
             </p>
-
             <div className="fade-in flex-hero-cta" style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',transitionDelay:'0.2s'}}>
               <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{minWidth:160}}>Book a Free Demo</a>
               <a href="#process" onClick={e=>{e.preventDefault();scrollTo('#process');}} className="btn-secondary" style={{minWidth:160}}>See How It Works</a>
             </div>
-
             <div className="fade-in stat-grid-mobile" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginTop:48,maxWidth:420,marginLeft:'auto',marginRight:'auto',transitionDelay:'0.3s'}}>
               <StatCounter target={100} suffix="%" label="Calls Answered" />
               <StatCounter target={24} suffix="/7" label="Always On" />
@@ -608,7 +617,6 @@
       );
     }
 
-    /* ── PAIN POINTS ── */
     function PainPoints() {
       const ref = useScrollAnim();
       const pains = [
@@ -641,7 +649,6 @@
       );
     }
 
-    /* ── SERVICES ── */
     function Services() {
       const ref = useScrollAnim();
       const services = [
@@ -674,7 +681,6 @@
       );
     }
 
-    /* ── HOW IT WORKS ── */
     function HowItWorks() {
       const ref = useScrollAnim();
       const steps = [
@@ -713,7 +719,6 @@
       );
     }
 
-    /* ── DEMO ── */
     function DemoSection() {
       const videoRef = useRef(null);
       const [isPlaying, setIsPlaying] = useState(false);
@@ -742,7 +747,6 @@
                 <video ref={videoRef} controls style={{width:'100%',display:'block'}} poster="thumbnail.png"
                   onPlay={()=>setIsPlaying(true)} onPause={()=>setIsPlaying(false)} onEnded={()=>setIsPlaying(false)}>
                   <source src="demovideo.mp4" type="video/mp4"/>
-                  Your browser does not support the video tag.
                 </video>
               </div>
               <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary">Book a Free Demo</a>
@@ -752,7 +756,6 @@
       );
     }
 
-    /* ── USE CASES ── */
     function UseCases() {
       const ref = useScrollAnim();
       const cases = [
@@ -785,7 +788,6 @@
       );
     }
 
-    /* ── COMPARISON ── */
     function Comparison() {
       const ref = useScrollAnim();
       const rows = [
@@ -813,8 +815,6 @@
               </h2>
             </div>
             <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic'}}>Veloro is designed to support your front desk — not replace it.</p>
-
-            {/* Desktop table */}
             <div className="fade-in v-card overflow-hidden comp-desktop" style={{overflowX:'auto'}}>
               <div style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:'1px solid #1e1e1e'}}>
                 <div style={{padding:'14px 20px'}}></div>
@@ -829,8 +829,6 @@
                 </div>
               ))}
             </div>
-
-            {/* Mobile cards */}
             <div className="fade-in comp-mobile" style={{display:'none',flexDirection:'column',gap:10}}>
               {rows.map((r,i) => (
                 <div key={i} className="v-card" style={{padding:'16px 18px'}}>
@@ -847,7 +845,6 @@
       );
     }
 
-    /* ── PRICING ── */
     function Pricing() {
       const ref = useScrollAnim();
       return (
@@ -861,7 +858,6 @@
             </div>
             <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic',padding:'0 8px'}}>Pricing shown is a starting estimate. Final pricing depends on your clinic's needs. Book a call to get a custom quote.</p>
             <div className="pricing-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:20}}>
-              {/* Starter */}
               <div className="fade-in v-card" style={{padding:'32px 24px',display:'flex',flexDirection:'column'}}>
                 <p style={{color:'#555',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Starter</p>
                 <div style={{marginBottom:20}}>
@@ -878,7 +874,6 @@
                 </ul>
                 <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{textAlign:'center'}}>Book a Demo</a>
               </div>
-              {/* Growth */}
               <div className="fade-in v-card pricing-card-popular" style={{padding:'32px 24px',display:'flex',flexDirection:'column',position:'relative',border:'1px solid #2e2e2e',boxShadow:'0 0 40px rgba(180,180,180,0.04)'}}>
                 <div style={{position:'absolute',top:-13,left:'50%',transform:'translateX(-50%)',whiteSpace:'nowrap'}}>
                   <span className="popular-badge">Most Popular</span>
@@ -904,7 +899,6 @@
       );
     }
 
-    /* ── ABOUT ── */
     function About() {
       const ref = useScrollAnim();
       return (
@@ -938,7 +932,6 @@
       );
     }
 
-    /* ── FAQ ── */
     function FAQ() {
       const ref = useScrollAnim();
       const [open, setOpen] = useState(null);
@@ -978,7 +971,6 @@
       );
     }
 
-    /* ── CONTACT ── */
     function Contact() {
       const ref = useScrollAnim();
       const [form, setForm] = useState({ name:'', company:'', email:'', message:'' });
@@ -1025,7 +1017,6 @@
       );
     }
 
-    /* ── FINAL CTA ── */
     function FinalCTA() {
       const ref = useScrollAnim();
       return (
@@ -1044,7 +1035,6 @@
       );
     }
 
-    /* ── FOOTER ── */
     function Footer() {
       const links = [
         { label:'Services', href:'#services' },
@@ -1091,7 +1081,6 @@
       );
     }
 
-    /* ── APP ── */
     function App() {
       return (
         <div style={{background:'#080808',minHeight:'100vh',width:'100%',overflowX:'hidden'}}>
@@ -1118,19 +1107,14 @@
   </script>
 
   <script>
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader-screen");
-
-  setTimeout(() => {
-    loader.style.opacity = "0";
-
-    setTimeout(() => {
-      loader.remove();
-    }, 500);
-  }, 500);
-});
-</script>
-
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader-screen");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 500);
+      }, 500);
+    });
+  </script>
 
 </body>
 </html>

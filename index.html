@@ -329,8 +329,8 @@
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      /* No auto-rotation - purely interactive */
-      animation: logo-glow 4s ease-in-out infinite;
+      /* Slow Y-axis spin with drifting X tilt for 3D feel */
+      animation: spin3d 20s linear infinite, logo-glow 4s ease-in-out infinite;
     }
     /* Each layer = one copy of the logo, offset back on Z axis.
        Together they create the illusion of thickness / extrusion. */
@@ -1130,20 +1130,21 @@ useEffect(() => {
       }, 500);
     });
 
-    // Scroll-based interactive logo animation (no auto-rotation)
+    // Scroll-based interactive logo animation
     let scrollProgress = 0;
     let mouseX = 0;
     let mouseY = 0;
-    let currentRotateY = 0;
-    let currentRotateX = 10;
+    let isInteracting = false;
 
     window.addEventListener('scroll', () => {
+      isInteracting = true;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 360 : 0;
       updateLogoRotation();
     }, { passive: true });
 
     document.addEventListener('mousemove', (e) => {
+      isInteracting = true;
       mouseX = (e.clientX / window.innerWidth - 0.5) * 50;
       mouseY = (e.clientY / window.innerHeight - 0.5) * 50;
       updateLogoRotation();
@@ -1152,12 +1153,29 @@ useEffect(() => {
     function updateLogoRotation() {
       const logoObj = document.querySelector('.bg-logo-obj');
       if (logoObj) {
-        currentRotateY = scrollProgress + mouseX;
-        currentRotateX = 10 + mouseY;
-        logoObj.style.animation = 'logo-glow 4s ease-in-out infinite';
-        logoObj.style.transform = `rotateY(${currentRotateY}deg) rotateX(${currentRotateX}deg)`;
+        const rotateY = scrollProgress + mouseX;
+        const rotateX = 10 + mouseY;
+        logoObj.style.animation = 'none';
+        logoObj.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
       }
     }
+
+    // Re-enable animation when user stops scrolling/moving mouse
+    let animationTimeout;
+    const resetAnimation = () => {
+      clearTimeout(animationTimeout);
+      animationTimeout = setTimeout(() => {
+        const logoObj = document.querySelector('.bg-logo-obj');
+        if (logoObj) {
+          logoObj.style.animation = 'spin3d 20s linear infinite, logo-glow 4s ease-in-out infinite';
+          logoObj.style.transform = 'none';
+          isInteracting = false;
+        }
+      }, 800);
+    };
+
+    window.addEventListener('scroll', resetAnimation, { passive: true });
+    document.addEventListener('mousemove', resetAnimation);
   </script>
 
 </body>

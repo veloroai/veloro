@@ -21,7 +21,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -64,10 +64,28 @@
     }
 
     .gradient-text {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 600;
       background: linear-gradient(135deg, #ffffff 0%, #d0d0d0 40%, #a0a0a0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow: 0 0 20px rgba(220,220,220,0.32), 0 0 46px rgba(190,190,190,0.16);
+    }
+
+    /* Quiet ambient glow for section/body headings — the type itself should
+       feel lit rather than flat against the black background. */
+    .glow-heading {
+      text-shadow: 0 0 16px rgba(220,220,220,0.16), 0 0 36px rgba(190,190,190,0.08);
+    }
+    /* The hero gets the one bolder, animated moment — restraint everywhere else. */
+    .glow-heading-hero {
+      animation: heading-pulse 4.5s ease-in-out infinite;
+    }
+    @keyframes heading-pulse {
+      0%, 100% { text-shadow: 0 0 16px rgba(220,220,220,0.16), 0 0 36px rgba(190,190,190,0.08); }
+      50%      { text-shadow: 0 0 26px rgba(230,230,230,0.26), 0 0 54px rgba(200,200,200,0.14); }
     }
 
     .section-label {
@@ -241,6 +259,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow: 0 0 14px rgba(220,220,220,0.2);
       line-height: 1;
     }
     .stat-label {
@@ -329,8 +348,9 @@
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      /* Slow Y-axis spin with drifting X tilt for 3D feel */
-      animation: spin3d 20s linear infinite, logo-glow 4s ease-in-out infinite;
+      /* Rotation is driven entirely by JS now (so it can pick up exactly
+         where the user left it); CSS here only handles the glow pulse. */
+      animation: logo-glow 4s ease-in-out infinite;
     }
     /* Each layer = one copy of the logo, offset back on Z axis.
        Together they create the illusion of thickness / extrusion. */
@@ -354,14 +374,6 @@
     .bg-logo-obj .layer:nth-child(4) { transform: translateZ(-24px); opacity: 0.07; filter: brightness(0.55); }
     .bg-logo-obj .layer:nth-child(5) { transform: translateZ(-32px); opacity: 0.04; filter: brightness(0.40); }
     .bg-logo-obj .layer:nth-child(6) { transform: translateZ(-40px); opacity: 0.02; filter: brightness(0.25); }
-
-    @keyframes spin3d {
-      0%   { transform: rotateY(0deg)   rotateX(10deg); }
-      25%  { transform: rotateY(90deg)  rotateX(4deg);  }
-      50%  { transform: rotateY(180deg) rotateX(14deg); }
-      75%  { transform: rotateY(270deg) rotateX(6deg);  }
-      100% { transform: rotateY(360deg) rotateX(10deg); }
-    }
 
     @keyframes logo-glow {
       0%, 100% { filter: drop-shadow(0 0 20px rgba(200,200,200,0.3)); }
@@ -607,16 +619,16 @@ useEffect(() => {
               <span style={{width:5,height:5,borderRadius:'50%',background:'#b0b0b0',display:'inline-block',flexShrink:0}}></span>
               AI Automation Agency
             </div>
-            <h1 className="fade-in font-display" style={{fontSize:'clamp(2rem,8vw,5rem)',fontWeight:700,lineHeight:1.08,letterSpacing:'-0.03em',marginBottom:24,transitionDelay:'0.05s'}}>
-              <span className="gradient-text">AI Automation</span><br/>
-              <span style={{color:'#e8e8e8'}}>Systems for Modern</span><br/>
-              <span style={{color:'#e8e8e8'}}>Businesses</span>
+            <h1 className="fade-in font-display glow-heading glow-heading-hero" style={{fontSize:'clamp(2rem,8vw,5rem)',fontWeight:700,lineHeight:1.08,letterSpacing:'-0.03em',marginBottom:24,transitionDelay:'0.05s'}}>
+              <span className="gradient-text">Never Miss</span><br/>
+              <span style={{color:'#e8e8e8'}}>a Patient Call</span><br/>
+              <span style={{color:'#e8e8e8'}}>Again.</span>
             </h1>
-            <p className="fade-in" style={{fontSize:'clamp(0.9rem,2.5vw,1.1rem)',color:'#666',maxWidth:540,margin:'0 auto 12px',lineHeight:1.75,transitionDelay:'0.1s',padding:'0 4px'}}>
-              Veloro builds AI voice agents, receptionists, and workflow automations that help businesses capture leads, book appointments, and reduce manual work.
+            <p className="fade-in" style={{fontSize:'clamp(0.9rem,2.5vw,1.1rem)',color:'#7c7c7c',maxWidth:540,margin:'0 auto 12px',lineHeight:1.75,transitionDelay:'0.1s',padding:'0 4px'}}>
+              Veloro's AI receptionist answers every call, books the appointment, and keeps your schedule full, so no patient ever hits voicemail again.
             </p>
-            <p className="fade-in" style={{fontSize:13,color:'#3a3a3a',maxWidth:420,margin:'0 auto 36px',lineHeight:1.65,transitionDelay:'0.15s',padding:'0 4px'}}>
-              Currently focused on helping dental clinics handle missed calls, after-hours inquiries, appointment booking, and follow-ups.
+            <p className="fade-in" style={{fontSize:13,color:'#5a5a5a',maxWidth:430,margin:'0 auto 36px',lineHeight:1.65,transitionDelay:'0.15s',padding:'0 4px'}}>
+              Right now we're proving this for dental clinics: missed calls, after-hours inquiries, booking, and follow-ups, all handled automatically.
             </p>
             <div className="fade-in flex-hero-cta" style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',transitionDelay:'0.2s'}}>
               <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{minWidth:160}}>Book a Free Demo</a>
@@ -635,19 +647,19 @@ useEffect(() => {
     function PainPoints() {
       const ref = useScrollAnim();
       const pains = [
-        { t: "Phones ring during busy hours", d: "Staff can't answer every call while treating patients. Callers hang up and book elsewhere.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
-        { t: "After-hours = zero coverage", d: "Patients call at night, on weekends, on holidays. No one picks up. They move on.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
-        { t: "Front desk is overloaded", d: "Manual scheduling, rescheduling, and follow-ups eat up hours every day.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg> },
-        { t: "Slow follow-ups lose patients", d: "A missed callback is a missed booking. There's no system to catch what falls through.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
-        { t: "Lost appointment opportunities", d: "Every unanswered call, every missed rebook, is direct revenue walking out the door.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
+        { t: "Phones ring during busy hours", d: "Staff can't answer every call while treating patients. Each missed ring is a patient who books with someone else instead.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
+        { t: "After-hours = zero coverage", d: "Patients call at night, on weekends, on holidays. No one picks up, and they don't try again tomorrow. They book elsewhere.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
+        { t: "Front desk is overloaded", d: "Manual scheduling, rescheduling, and follow-ups eat hours every day that could go toward patients already in the chair.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg> },
+        { t: "Slow follow-ups lose patients", d: "A missed callback is a missed booking. Without a system catching it, that appointment just doesn't happen.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+        { t: "Lost appointment opportunities", d: "Every unanswered call and every missed rebook is revenue that already walked out the door.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
       ];
       return (
         <section ref={ref} id="problem" className="section-py" style={{padding:'64px 16px'}}>
           <div style={{maxWidth:1200,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">The Problem</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Every Missed Call Is a<br/><span className="gradient-text">Missed Appointment</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Every Missed Call Is<br/><span className="gradient-text">Lost Revenue</span>
               </h2>
             </div>
             <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(260px,100%),1fr))',gap:14}}>
@@ -655,7 +667,7 @@ useEffect(() => {
                 <div key={i} className="fade-in v-card" style={{padding:'24px 20px',transitionDelay:`${i*0.05}s`}}>
                   <div style={{width:36,height:36,borderRadius:8,background:'#161616',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16,flexShrink:0}}>{p.icon}</div>
                   <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:8,fontFamily:"'Space Grotesk',sans-serif"}}>{p.t}</h3>
-                  <p style={{color:'#555',fontSize:13,lineHeight:1.7}}>{p.d}</p>
+                  <p style={{color:'#7a7a7a',fontSize:13,lineHeight:1.7}}>{p.d}</p>
                 </div>
               ))}
             </div>
@@ -667,18 +679,18 @@ useEffect(() => {
     function Services() {
       const ref = useScrollAnim();
       const services = [
-        { title:"AI Voice Receptionist", desc:"An AI agent that answers every inbound call, 24/7. Handles appointment booking, rescheduling, cancellations, and FAQs in natural conversation. Never misses a call.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
-        { title:"Appointment Automation", desc:"Veloro connects the AI voice agent directly to your calendar. Patients book, reschedule, or cancel in real time — no back-and-forth, no manual entry.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
-        { title:"After-Hours Call Handling", desc:"When your clinic closes, Veloro stays open. After-hours calls are handled the same way as business hours — real answers and real appointments, not voicemail.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
-        { title:"Workflow Automation", desc:"Custom automation systems that remove repetitive manual work: follow-up sequences, reminder workflows, internal notifications — built for how your business operates.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
+        { title:"AI Voice Receptionist", desc:"Every inbound call gets answered, 24/7, and turned into a booked appointment instead of a missed opportunity. Handles rescheduling, cancellations, and FAQs in natural conversation.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
+        { title:"Appointment Automation", desc:"Patients book, reschedule, or cancel themselves in real time, straight into your calendar. Your schedule fills without anyone touching a keyboard.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
+        { title:"After-Hours Call Handling", desc:"Your clinic closes. Veloro doesn't. A call at 9pm gets the same booked outcome as a call at 9am, not a voicemail.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
+        { title:"Workflow Automation", desc:"Reminders, follow-up sequences, and internal notifications run on their own, so nothing gets missed just because someone forgot.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
       ];
       return (
         <section ref={ref} id="services" className="section-py" style={{padding:'64px 16px'}}>
           <div style={{maxWidth:1200,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Services</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                AI Systems That <span className="gradient-text">Do the Work</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Systems Built to <span className="gradient-text">Book the Appointment</span>
               </h2>
             </div>
             <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(270px,100%),1fr))',gap:16}}>
@@ -686,11 +698,11 @@ useEffect(() => {
                 <div key={i} className="fade-in v-card" style={{padding:'28px 22px',transitionDelay:`${i*0.05}s`}}>
                   <div style={{width:44,height:44,borderRadius:10,background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:18,flexShrink:0}}>{s.icon}</div>
                   <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:16,marginBottom:10,fontFamily:"'Space Grotesk',sans-serif"}}>{s.title}</h3>
-                  <p style={{color:'#555',fontSize:13,lineHeight:1.75}}>{s.desc}</p>
+                  <p style={{color:'#7a7a7a',fontSize:13,lineHeight:1.75}}>{s.desc}</p>
                 </div>
               ))}
             </div>
-            <p className="fade-in" style={{color:'#333',fontSize:12,marginTop:32,textAlign:'center',transitionDelay:'0.2s'}}>All systems are built using modern AI and automation tools. Fully customized to your clinic's workflow.</p>
+            <p className="fade-in" style={{color:'#555',fontSize:12,marginTop:32,textAlign:'center',transitionDelay:'0.2s'}}>Every system is custom-built around your clinic's actual call volume and workflow, not a one-size-fits-all script.</p>
           </div>
         </section>
       );
@@ -709,8 +721,8 @@ useEffect(() => {
           <div style={{maxWidth:720,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Process</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                From Setup to Running <span className="gradient-text">in Days</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Live and <span className="gradient-text">Booking Calls</span> in Days
               </h2>
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:12}}>
@@ -724,7 +736,7 @@ useEffect(() => {
                   </div>
                   <div className="v-card process-step-card" style={{padding:'18px 20px',flex:1,minWidth:0}}>
                     <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:6,fontFamily:"'Space Grotesk',sans-serif"}}>{s.t}</h3>
-                    <p style={{color:'#555',fontSize:13,lineHeight:1.7}}>{s.d}</p>
+                    <p style={{color:'#7a7a7a',fontSize:13,lineHeight:1.7}}>{s.d}</p>
                   </div>
                 </div>
               ))}
@@ -748,8 +760,8 @@ useEffect(() => {
           <div style={{maxWidth:680,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">Live Demo</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Hear It for <span className="gradient-text">Yourself</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Hear a Real <span className="gradient-text">Booking</span> Happen
               </h2>
             </div>
             <div className="fade-in v-card demo-card-inner" style={{padding:'32px 20px',textAlign:'center'}}>
@@ -786,15 +798,15 @@ useEffect(() => {
           <div style={{maxWidth:1200,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">Use Cases</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Built for Real <span className="gradient-text">Clinic Situations</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Built for the Calls You're <span className="gradient-text">Actually Losing</span>
               </h2>
             </div>
             <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:12}}>
               {cases.map((c,i) => (
                 <div key={i} className="fade-in v-card" style={{padding:'20px 18px',transitionDelay:`${i*0.04}s`}}>
                   <p style={{color:'#c0c0c0',fontWeight:500,fontSize:14,marginBottom:10,lineHeight:1.5}}>{c.s}</p>
-                  <p style={{color:'#444',fontSize:13,lineHeight:1.65}}>→ {c.r}</p>
+                  <p style={{color:'#666',fontSize:13,lineHeight:1.65}}>→ {c.r}</p>
                 </div>
               ))}
             </div>
@@ -818,23 +830,23 @@ useEffect(() => {
       const Cell = ({val}) => {
         if (val === true) return <span style={{color:'#c0c0c0',fontSize:16}}>✓</span>;
         if (val === false) return <span style={{color:'#282828',fontSize:16}}>✕</span>;
-        return <span style={{color:'#444',fontSize:12,fontStyle:'italic'}}>Sometimes</span>;
+        return <span style={{color:'#666',fontSize:12,fontStyle:'italic'}}>Sometimes</span>;
       };
       return (
         <section ref={ref} id="comparison" className="section-py" style={{padding:'64px 16px'}}>
           <div style={{maxWidth:760,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:16}}>
               <span className="fade-in section-label">Why Veloro</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Not a Replacement. <span className="gradient-text">An Upgrade.</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Not a Replacement. <span className="gradient-text">A Force Multiplier.</span>
               </h2>
             </div>
-            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic'}}>Veloro is designed to support your front desk — not replace it.</p>
+            <p className="fade-in" style={{textAlign:'center',color:'#5a5a5a',fontSize:13,marginBottom:40,fontStyle:'italic'}}>Veloro is designed to support your front desk, not replace it.</p>
             <div className="fade-in v-card overflow-hidden comp-desktop" style={{overflowX:'auto'}}>
               <div style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:'1px solid #1e1e1e'}}>
                 <div style={{padding:'14px 20px'}}></div>
-                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e'}}><span style={{color:'#444',fontSize:12,fontWeight:600}}>Human Receptionist</span></div>
-                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e',background:'rgba(255,255,255,0.02)'}}><span className="gradient-text" style={{fontSize:12,fontWeight:700,fontFamily:"'Space Grotesk',sans-serif"}}>Veloro AI</span></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e'}}><span style={{color:'#666',fontSize:12,fontWeight:600}}>Human Receptionist</span></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e',background:'rgba(255,255,255,0.02)'}}><span className="gradient-text" style={{fontSize:12,fontWeight:700,fontFamily:"'Space Grotesk',sans-serif",fontStyle:'normal'}}>Veloro AI</span></div>
               </div>
               {rows.map((r,i) => (
                 <div key={i} style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:i<rows.length-1?'1px solid #141414':'none'}}>
@@ -849,8 +861,8 @@ useEffect(() => {
                 <div key={i} className="v-card" style={{padding:'16px 18px'}}>
                   <p style={{color:'#bbb',fontWeight:500,fontSize:13,marginBottom:10}}>{r.f}</p>
                   <div style={{display:'flex',gap:24}}>
-                    <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{color:'#444',fontSize:11}}>Human</span><Cell val={r.h}/></div>
-                    <div style={{display:'flex',alignItems:'center',gap:8}}><span className="gradient-text" style={{fontSize:11,fontWeight:600,fontFamily:"'Space Grotesk',sans-serif"}}>Veloro</span><Cell val={r.v}/></div>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{color:'#666',fontSize:11}}>Human</span><Cell val={r.h}/></div>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}><span className="gradient-text" style={{fontSize:11,fontWeight:600,fontFamily:"'Space Grotesk',sans-serif",fontStyle:'normal'}}>Veloro</span><Cell val={r.v}/></div>
                   </div>
                 </div>
               ))}
@@ -867,23 +879,23 @@ useEffect(() => {
           <div style={{maxWidth:900,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:16}}>
               <span className="fade-in section-label">Pricing</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Simple, Transparent <span className="gradient-text">Pricing</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Pricing Built Around <span className="gradient-text">Appointments Booked</span>
               </h2>
             </div>
-            <p className="fade-in" style={{textAlign:'center',color:'#3a3a3a',fontSize:13,marginBottom:40,fontStyle:'italic',padding:'0 8px'}}>Pricing shown is a starting estimate. Final pricing depends on your clinic's needs. Book a call to get a custom quote.</p>
+            <p className="fade-in" style={{textAlign:'center',color:'#5a5a5a',fontSize:13,marginBottom:40,fontStyle:'italic',padding:'0 8px'}}>Pricing shown is a starting estimate. Final pricing depends on your clinic's call volume. Book a call to get a custom quote.</p>
             <div className="pricing-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:20}}>
               <div className="fade-in v-card" style={{padding:'32px 24px',display:'flex',flexDirection:'column'}}>
-                <p style={{color:'#555',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Starter</p>
+                <p style={{color:'#777',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Starter</p>
                 <div style={{marginBottom:20}}>
-                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
-                  <span style={{color:'#444',fontSize:13}}>/mo</span>
+                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em',fontStyle:'normal'}}>$[X]</span>
+                  <span style={{color:'#666',fontSize:13}}>/mo</span>
                 </div>
                 <div style={{height:1,background:'#1a1a1a',marginBottom:20}}></div>
                 <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
-                  {["AI Voice Receptionist (inbound calls)","24/7 availability","Appointment booking & cancellations","Calendar integration","Email support"].map((f,i) => (
-                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#666'}}>
-                      <span style={{color:'#888',marginTop:1,flexShrink:0}}>✓</span>{f}
+                  {["Every inbound call answered, 24/7","Appointment booking handled live","Rescheduling & cancellations covered","Calendar integration included","Email support"].map((f,i) => (
+                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#888'}}>
+                      <span style={{color:'#999',marginTop:1,flexShrink:0}}>✓</span>{f}
                     </li>
                   ))}
                 </ul>
@@ -893,16 +905,16 @@ useEffect(() => {
                 <div style={{position:'absolute',top:-13,left:'50%',transform:'translateX(-50%)',whiteSpace:'nowrap'}}>
                   <span className="popular-badge">Most Popular</span>
                 </div>
-                <p style={{color:'#555',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Growth</p>
+                <p style={{color:'#777',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Growth</p>
                 <div style={{marginBottom:20}}>
-                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em'}}>$[X]</span>
-                  <span style={{color:'#444',fontSize:13}}>/mo</span>
+                  <span className="gradient-text font-display" style={{fontSize:'2.2rem',fontWeight:700,letterSpacing:'-0.02em',fontStyle:'normal'}}>$[X]</span>
+                  <span style={{color:'#666',fontSize:13}}>/mo</span>
                 </div>
                 <div style={{height:1,background:'#2a2a2a',marginBottom:20}}></div>
                 <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
-                  {["Everything in Starter","After-hours call handling","Rescheduling automation","Follow-up workflow automation","Priority support","Monthly performance review"].map((f,i) => (
-                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#666'}}>
-                      <span style={{color:'#888',marginTop:1,flexShrink:0}}>✓</span>{f}
+                  {["Everything in Starter","After-hours calls turned into bookings","Reschedule automation, zero staff time","Follow-up workflows that run themselves","Priority support","Monthly performance review"].map((f,i) => (
+                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#888'}}>
+                      <span style={{color:'#999',marginTop:1,flexShrink:0}}>✓</span>{f}
                     </li>
                   ))}
                 </ul>
@@ -921,12 +933,12 @@ useEffect(() => {
           <div style={{maxWidth:760,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">About</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Built by People Who Take<br/><span className="gradient-text">Automation Seriously</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Built by Operators Who Care<br/>About <span className="gradient-text">Results</span>
               </h2>
             </div>
-            <p className="fade-in" style={{color:'#555',fontSize:15,lineHeight:1.85,textAlign:'center',maxWidth:540,margin:'0 auto 44px',padding:'0 4px'}}>
-              Veloro is an AI automation agency focused on building practical systems that actually work. We combine AI voice technology and workflow automation to help businesses stop losing opportunities to missed calls and manual processes. We're not a software product. We build custom systems for your specific workflow.
+            <p className="fade-in" style={{color:'#7a7a7a',fontSize:15,lineHeight:1.85,textAlign:'center',maxWidth:540,margin:'0 auto 44px',padding:'0 4px'}}>
+              Veloro builds AI systems that pick up the phone, book the appointment, and keep the calendar full, so you stop losing business to voicemail. We're not a software product you configure yourself. We build the system, connect it to your tools, and keep it running for your clinic.
             </p>
             <div className="founders-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(200px,100%),1fr))',gap:14,maxWidth:440,margin:'0 auto'}}>
               {[
@@ -938,7 +950,7 @@ useEffect(() => {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   </div>
                   <h4 style={{color:'#e0e0e0',fontWeight:600,fontSize:14,fontFamily:"'Space Grotesk',sans-serif"}}>{f.name}</h4>
-                  <p style={{color:'#444',fontSize:12,marginTop:4}}>Co-Founder</p>
+                  <p style={{color:'#666',fontSize:12,marginTop:4}}>Co-Founder</p>
                 </a>
               ))}
             </div>
@@ -962,7 +974,7 @@ useEffect(() => {
           <div style={{maxWidth:680,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:48}}>
               <span className="fade-in section-label">FAQ</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
                 Common <span className="gradient-text">Questions</span>
               </h2>
             </div>
@@ -976,7 +988,7 @@ useEffect(() => {
                     </svg>
                   </button>
                   <div style={{maxHeight:open===i?200:0,overflow:'hidden',transition:'max-height 0.3s ease, opacity 0.3s ease',opacity:open===i?1:0}}>
-                    <div style={{padding:'0 20px 18px',color:'#555',fontSize:13,lineHeight:1.75}}>{f.a}</div>
+                    <div style={{padding:'0 20px 18px',color:'#7a7a7a',fontSize:13,lineHeight:1.75}}>{f.a}</div>
                   </div>
                 </div>
               ))}
@@ -1009,8 +1021,8 @@ useEffect(() => {
           <div style={{maxWidth:520,margin:'0 auto'}}>
             <div style={{textAlign:'center',marginBottom:40}}>
               <span className="fade-in section-label">Contact</span>
-              <h2 className="fade-in font-display" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
-                Ready to Stop<br/><span className="gradient-text">Missing Calls?</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Ready to <span className="gradient-text">Stop Losing</span><br/>Patients?
               </h2>
             </div>
             <form onSubmit={handleSubmit} className="fade-in" style={{display:'flex',flexDirection:'column',gap:12}}>
@@ -1022,10 +1034,10 @@ useEffect(() => {
                 {status==='sending' ? 'Sending...' : 'Send Message'}
               </button>
               {status==='success' && <p style={{color:'#a0a0a0',fontSize:13,textAlign:'center'}}>Message sent! We'll get back to you soon.</p>}
-              {status==='error' && <p style={{color:'#666',fontSize:13,textAlign:'center'}}>Something went wrong. Email us at teamveloro@gmail.com</p>}
+              {status==='error' && <p style={{color:'#888',fontSize:13,textAlign:'center'}}>Something went wrong. Email us at teamveloro@gmail.com</p>}
             </form>
-            <p className="fade-in" style={{textAlign:'center',color:'#444',fontSize:13,marginTop:20}}>
-              Or book directly: <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="gradient-text" style={{fontWeight:600,textDecoration:'none'}}>Book a Free Demo →</a>
+            <p className="fade-in" style={{textAlign:'center',color:'#666',fontSize:13,marginTop:20}}>
+              Or book directly: <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="gradient-text" style={{fontWeight:600,textDecoration:'none',fontStyle:'normal'}}>Book a Free Demo →</a>
             </p>
           </div>
         </section>
@@ -1040,10 +1052,10 @@ useEffect(() => {
           <div style={{position:'absolute',top:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#222,transparent)'}}></div>
           <div style={{position:'absolute',bottom:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#1a1a1a,transparent)'}}></div>
           <div style={{position:'relative',zIndex:10,maxWidth:680,margin:'0 auto',textAlign:'center'}}>
-            <h2 className="fade-in font-display" style={{fontSize:'clamp(1.7rem,6vw,3.4rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.03em',marginBottom:16,lineHeight:1.1}}>
+            <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.7rem,6vw,3.4rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.03em',marginBottom:16,lineHeight:1.1}}>
               Your Next Patient Shouldn't<br/><span className="gradient-text">Go to Voicemail.</span>
             </h2>
-            <p className="fade-in" style={{color:'#444',fontSize:15,marginBottom:36,lineHeight:1.75,transitionDelay:'0.1s',padding:'0 8px'}}>Book a free demo and see exactly how Veloro can be set up for your clinic.</p>
+            <p className="fade-in" style={{color:'#666',fontSize:15,marginBottom:36,lineHeight:1.75,transitionDelay:'0.1s',padding:'0 8px'}}>Book a free demo and see exactly how Veloro can be set up for your clinic.</p>
             <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="fade-in btn-primary" style={{fontSize:15,padding:'14px 32px',transitionDelay:'0.15s'}}>Book a Free Demo</a>
           </div>
         </section>
@@ -1067,29 +1079,29 @@ useEffect(() => {
                   <img src="logo.png" alt="Veloro AI" style={{height:28,width:'auto'}}/>
                   <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:16,color:'#e0e0e0'}}>Veloro</span>
                 </div>
-                <p style={{color:'#333',fontSize:13,lineHeight:1.65,maxWidth:200}}>AI Automation Systems for Modern Businesses</p>
+                <p style={{color:'#555',fontSize:13,lineHeight:1.65,maxWidth:200}}>AI Automation Systems for Modern Businesses</p>
               </div>
               <div>
-                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Quick Links</h4>
+                <h4 style={{color:'#666',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Quick Links</h4>
                 <div style={{display:'flex',flexDirection:'column',gap:10}}>
-                  {links.map(l => <a key={l.href} href={l.href} onClick={e=>{e.preventDefault();scrollTo(l.href);}} style={{color:'#444',fontSize:13,textDecoration:'none',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#444'}>{l.label}</a>)}
+                  {links.map(l => <a key={l.href} href={l.href} onClick={e=>{e.preventDefault();scrollTo(l.href);}} style={{color:'#666',fontSize:13,textDecoration:'none',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#666'}>{l.label}</a>)}
                 </div>
               </div>
               <div>
-                <h4 style={{color:'#444',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Get in Touch</h4>
-                <a href="mailto:teamveloro@gmail.com" style={{color:'#444',fontSize:13,textDecoration:'none',display:'block',marginBottom:14,wordBreak:'break-all'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#444'}>teamveloro@gmail.com</a>
+                <h4 style={{color:'#666',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Get in Touch</h4>
+                <a href="mailto:teamveloro@gmail.com" style={{color:'#666',fontSize:13,textDecoration:'none',display:'block',marginBottom:14,wordBreak:'break-all'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#666'}>teamveloro@gmail.com</a>
                 <div style={{display:'flex',gap:14}}>
-                  <a href="https://www.instagram.com/velorohq/" target="_blank" rel="noopener noreferrer" style={{color:'#333',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#333'} aria-label="Instagram">
+                  <a href="https://www.instagram.com/velorohq/" target="_blank" rel="noopener noreferrer" style={{color:'#555',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#555'} aria-label="Instagram">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                   </a>
-                  <a href="https://www.linkedin.com/company/veloroaims" target="_blank" rel="noopener noreferrer" style={{color:'#333',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#333'} aria-label="LinkedIn">
+                  <a href="https://www.linkedin.com/company/veloroaims" target="_blank" rel="noopener noreferrer" style={{color:'#555',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#555'} aria-label="LinkedIn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                   </a>
                 </div>
               </div>
             </div>
             <div style={{borderTop:'1px solid #111',paddingTop:18,textAlign:'center'}}>
-              <p style={{color:'#2a2a2a',fontSize:12}}>© 2025 Veloro AI. All rights reserved.</p>
+              <p style={{color:'#444',fontSize:12}}>© 2025 Veloro AI. All rights reserved.</p>
             </div>
           </div>
         </footer>
@@ -1130,52 +1142,91 @@ useEffect(() => {
       }, 500);
     });
 
-    // Scroll-based interactive logo animation
+    // ── Interactive logo rotation ──
+    // currentY / currentX are the single source of truth for the logo's
+    // rotation. Both "idle auto-spin" and "user is scrolling/moving the
+    // mouse" read from and write to these, so switching between the two
+    // never snaps back to a fixed start position — it always continues
+    // from wherever the logo already was.
+    const logoObj = document.querySelector('.bg-logo-obj');
+
+    let currentY = 0;
+    let currentX = 10;
+
+    let idleRafId = null;
+    let idleStartTs = null;
+    let idleStartY = 0;
+    let idleStartX = 10;
+    let resumeTimeout = null;
+
+    const SPIN_SPEED = 360 / 20000;   // deg per ms — same pace as the old loop
+    const WOBBLE_BASE = 9;
+    const WOBBLE_AMPLITUDE = 5;
+    const WOBBLE_PERIOD = 20000;
+
+    function applyTransform(y, x) {
+      if (!logoObj) return;
+      logoObj.style.transform = `rotateY(${y}deg) rotateX(${x}deg)`;
+      currentY = y;
+      currentX = x;
+    }
+
+    function idleFrame(ts) {
+      if (idleStartTs === null) {
+        idleStartTs = ts;
+        idleStartY = currentY;
+        idleStartX = currentX;
+      }
+      const elapsed = ts - idleStartTs;
+      const y = idleStartY + elapsed * SPIN_SPEED;
+      // ease X gently into the ambient wobble instead of snapping to it
+      const blend = Math.min(elapsed / 1200, 1);
+      const wobbleX = WOBBLE_BASE + WOBBLE_AMPLITUDE * Math.sin((elapsed / WOBBLE_PERIOD) * 2 * Math.PI);
+      const x = idleStartX + (wobbleX - idleStartX) * blend;
+      applyTransform(y, x);
+      idleRafId = requestAnimationFrame(idleFrame);
+    }
+
+    function cancelIdleSpin() {
+      if (idleRafId !== null) { cancelAnimationFrame(idleRafId); idleRafId = null; }
+      idleStartTs = null;
+    }
+
+    function startIdleSpin() {
+      cancelIdleSpin();
+      idleRafId = requestAnimationFrame(idleFrame);
+    }
+
+    function scheduleIdleResume() {
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(startIdleSpin, 800);
+    }
+
     let scrollProgress = 0;
-    let mouseX = 0;
-    let mouseY = 0;
-    let isInteracting = false;
+    let mouseOffsetX = 0;
+    let mouseOffsetY = 0;
+
+    function handleInteraction() {
+      cancelIdleSpin();
+      applyTransform(scrollProgress + mouseOffsetX, 10 + mouseOffsetY);
+      scheduleIdleResume();
+    }
 
     window.addEventListener('scroll', () => {
-      isInteracting = true;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 360 : 0;
-      updateLogoRotation();
+      handleInteraction();
     }, { passive: true });
 
     document.addEventListener('mousemove', (e) => {
-      isInteracting = true;
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 50;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 50;
-      updateLogoRotation();
+      mouseOffsetX = (e.clientX / window.innerWidth - 0.5) * 50;
+      mouseOffsetY = (e.clientY / window.innerHeight - 0.5) * 50;
+      handleInteraction();
     });
 
-    function updateLogoRotation() {
-      const logoObj = document.querySelector('.bg-logo-obj');
-      if (logoObj) {
-        const rotateY = scrollProgress + mouseX;
-        const rotateX = 10 + mouseY;
-        logoObj.style.animation = 'none';
-        logoObj.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-      }
-    }
-
-    // Re-enable animation when user stops scrolling/moving mouse
-    let animationTimeout;
-    const resetAnimation = () => {
-      clearTimeout(animationTimeout);
-      animationTimeout = setTimeout(() => {
-        const logoObj = document.querySelector('.bg-logo-obj');
-        if (logoObj) {
-          logoObj.style.animation = 'spin3d 20s linear infinite, logo-glow 4s ease-in-out infinite';
-          logoObj.style.transform = 'none';
-          isInteracting = false;
-        }
-      }, 800);
-    };
-
-    window.addEventListener('scroll', resetAnimation, { passive: true });
-    document.addEventListener('mousemove', resetAnimation);
+    // Start the idle spin immediately on load. There's only ever one
+    // rotation system now, so there's nothing to "switch back" to.
+    startIdleSpin();
   </script>
 
 </body>

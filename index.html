@@ -772,7 +772,7 @@ useEffect(() => {
                   : <svg width="26" height="26" viewBox="0 0 24 24" fill="#080808"><polygon points="6 3 20 12 6 21 6 3"/></svg>}
               </div>
               <div style={{borderRadius:10,overflow:'hidden',border:'1px solid #1e1e1e',marginBottom:20}}>
-                <video ref={videoRef} controls preload="none" style={{width:'100%',display:'block'}} poster="thumbnail.png"
+                <video ref={videoRef} controls preload="none" style={{width:'100%',height:'500px',display:'block'}} poster="thumbnail.png"
                   onPlay={()=>setIsPlaying(true)} onPause={()=>setIsPlaying(false)} onEnded={()=>setIsPlaying(false)}>
                   <source src="demovideo.mp4" type="video/mp4"/>
                 </video>

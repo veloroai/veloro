@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="nMV3qqM5oUjdruzGC3YSDNBMtZSafuJBp44RT9KMVhc" />
+  <title>AI Receptionist for Dental Clinics | Veloro AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Veloro AI builds 24/7 AI voice receptionists for dental clinics. Answer every call, book appointments automatically, and handle rescheduling and cancellations without adding staff.">
+  <meta name="keywords" content="AI receptionist, Dental AI receptionist, AI voice agent, Dental appointment booking AI, Veloro AI, Best AI receptionist for dental clinics, AI agency for dentists">
+  <link rel="canonical" href="https://veloroai.agency/">
+  <meta property="og:title" content="AI Receptionist for Dental Clinics | Veloro AI">
+  <meta property="og:description" content="Never miss another patient call. AI voice receptionist for dental clinics that books appointments 24/7.">
+  <meta property="og:image" content="https://veloroai.agency/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://veloroai.agency">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Receptionist for Dental Clinics | Veloro AI">
+  <meta name="twitter:description" content="24/7 AI receptionist that books appointments automatically.">
+  <meta name="twitter:image" content="https://veloroai.agency/og-image.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'v-bg':      '#080808',
+            'v-surface': '#101010',
+            'v-border':  '#1e1e1e',
+            'v-text':    '#e8e8e8',
+            'v-muted':   '#666666',
+            'v-silver':  '#b8b8b8',
+            'v-accent':  '#d0d0d0',
+          },
+          fontFamily: {
+            'display': ['Space Grotesk', 'sans-serif'],
+            'body':    ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #080808;
+      color: #f5f5f5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="%23c0c0c0" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="%23c0c0c0"/></svg>') 10 10, auto;
+    }
+
+    .gradient-text {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ffffff 0%, #d0d0d0 40%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(220,220,220,0.32), 0 0 46px rgba(190,190,190,0.16);
+    }
+
+    /* Quiet ambient glow for section/body headings — the type itself should
+       feel lit rather than flat against the black background. */
+    .glow-heading {
+      text-shadow: 0 0 16px rgba(220,220,220,0.16), 0 0 36px rgba(190,190,190,0.08);
+    }
+    /* The hero gets the one bolder, animated moment — restraint everywhere else. */
+    .glow-heading-hero {
+      animation: heading-pulse 4.5s ease-in-out infinite;
+    }
+    @keyframes heading-pulse {
+      0%, 100% { text-shadow: 0 0 16px rgba(220,220,220,0.16), 0 0 36px rgba(190,190,190,0.08); }
+      50%      { text-shadow: 0 0 26px rgba(230,230,230,0.26), 0 0 54px rgba(200,200,200,0.14); }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #aaa;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f0f0f0 0%, #b0b0b0 100%);
+      color: #080808;
+      font-weight: 700;
+      padding: 13px 30px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.01em;
+      box-shadow: 0 0 20px rgba(240,240,240,0.2);
+    }
+    .btn-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 32px rgba(220,220,220,0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #d0d0d0;
+      font-weight: 500;
+      padding: 13px 30px;
+      border-radius: 10px;
+      border: 1px solid #3a3a3a;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .btn-secondary:hover {
+      border-color: #666;
+      color: #f0f0f0;
+      transform: scale(1.03);
+    }
+
+    .v-card {
+      background: rgba(16, 16, 16, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(30, 30, 30, 0.5);
+      border-radius: 14px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .v-card:hover {
+      background: rgba(16, 16, 16, 0.7);
+      border-color: rgba(51, 51, 51, 0.7);
+      box-shadow: 0 0 32px rgba(180,180,180,0.04);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(8,8,8,0.88);
+    }
+
+    /* Loading screen */
+    #loader-screen {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity .5s ease;
+    }
+    .loader {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,.15);
+      border-top-color: #fff;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Orbs ── */
+    .orb-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.045;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #d0d0d0 0%, transparent 70%);
+      top: -100px; left: -150px;
+      animation: drift1 22s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #a0a0a0 0%, transparent 70%);
+      bottom: 10%; right: -100px;
+      animation: drift2 28s ease-in-out infinite alternate;
+    }
+    .orb-3 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, #c0c0c0 0%, transparent 70%);
+      top: 45%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: drift3 18s ease-in-out infinite alternate;
+    }
+    @keyframes drift1 {
+      0%   { transform: translate(0,0); }
+      100% { transform: translate(120px, 180px); }
+    }
+    @keyframes drift2 {
+      0%   { transform: translate(0,0); }
+      100% { transform: translate(-100px, -140px); }
+    }
+    @keyframes drift3 {
+      0%   { transform: translate(-50%,-50%) scale(1); }
+      100% { transform: translate(-40%,-60%) scale(1.15); }
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .stat-card {
+      background: rgba(16, 16, 16, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(30, 30, 30, 0.4);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 14px rgba(220,220,220,0.2);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #777;
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e0e0e0 0%, #707070 100%);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 0 auto;
+    }
+    .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 32px rgba(200,200,200,0.2);
+    }
+
+    .popular-badge {
+      background: linear-gradient(135deg, #e0e0e0 0%, #909090 100%);
+      color: #080808;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(8, 8, 8, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(30, 30, 30, 0.5);
+      border-radius: 10px;
+      padding: 13px 15px;
+      font-size: 14px;
+      color: #e8e8e8;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .input-field::placeholder { color: #888; }
+    .input-field:focus { border-color: rgba(100, 100, 100, 0.6); background: rgba(8, 8, 8, 0.8); }
+
+    .check-icon { color: #d0d0d0; font-size: 16px; }
+    .cross-icon { color: #2e2e2e; font-size: 16px; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+    ::selection { background: rgba(180,180,180,0.2); color: #fff; }
+
+    /* ══════════════════════════════════════════
+       3D ROTATING BACKGROUND LOGO
+    ══════════════════════════════════════════ */
+    .bg-logo-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .bg-logo-scene {
+      /* 3D perspective container */
+      perspective: 1400px;
+      width: min(620px, 88vw);
+      height: min(620px, 88vw);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .bg-logo-obj {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      /* Rotation is driven entirely by JS now (so it can pick up exactly
+         where the user left it); CSS here only handles the glow pulse. */
+      animation: logo-glow 4s ease-in-out infinite;
+    }
+    /* Each layer = one copy of the logo, offset back on Z axis.
+       Together they create the illusion of thickness / extrusion. */
+    .bg-logo-obj .layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-logo-obj .layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    /* Front face — most visible */
+    .bg-logo-obj .layer:nth-child(1) { transform: translateZ(0px);   opacity: 0.18; }
+    /* Each layer behind dims — creates shadow/depth effect */
+    .bg-logo-obj .layer:nth-child(2) { transform: translateZ(-8px);  opacity: 0.14; filter: brightness(0.85); }
+    .bg-logo-obj .layer:nth-child(3) { transform: translateZ(-16px); opacity: 0.10; filter: brightness(0.70); }
+    .bg-logo-obj .layer:nth-child(4) { transform: translateZ(-24px); opacity: 0.07; filter: brightness(0.55); }
+    .bg-logo-obj .layer:nth-child(5) { transform: translateZ(-32px); opacity: 0.04; filter: brightness(0.40); }
+    .bg-logo-obj .layer:nth-child(6) { transform: translateZ(-40px); opacity: 0.02; filter: brightness(0.25); }
+
+    @keyframes logo-glow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(200,200,200,0.3)); }
+      50% { filter: drop-shadow(0 0 35px rgba(220,220,220,0.5)); }
+    }
+
+    /* Conic shimmer ring — rotates in sync, mimics light catching metal */
+    .bg-logo-shimmer {
+      position: absolute;
+      inset: -18%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(220,220,220,0.08) 50deg,
+        transparent 100deg,
+        rgba(220,220,220,0.04) 185deg,
+        transparent 240deg
+      );
+      animation: shimmer-rot 20s linear infinite;
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: inset 0 0 60px rgba(200,200,200,0.15);
+    }
+    @keyframes shimmer-rot {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Static SEO fallback content — visible on first paint and to any
+       client that can't or doesn't run the JS app; hidden the instant
+       React mounts over it. Never display:none — that would be cloaking. */
+    #seo-fallback {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 100px 20px 60px;
+      color: #e8e8e8;
+    }
+    #seo-fallback h1 { font-size: 2.2rem; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    #seo-fallback p { color: #aaa; line-height: 1.7; margin-bottom: 14px; }
+    #seo-fallback h2 { font-size: 1.3rem; margin: 28px 0 10px; font-family: 'Space Grotesk', sans-serif; }
+
+    /* ── Responsive overrides ── */
+    @media (max-width: 480px) {
+      .bg-logo-scene { width: min(280px, 86vw); height: min(280px, 86vw); }
+    }
+    @media (max-width: 360px) {
+      .orb-1 { width: 200px; height: 200px; filter: blur(50px); }
+      .orb-2 { width: 180px; height: 180px; filter: blur(50px); }
+      .orb-3 { width: 150px; height: 150px; filter: blur(50px); }
+      .btn-primary, .btn-secondary { padding: 11px 18px; font-size: 13px; width: 100%; text-align: center; display: block; }
+      .stat-card { padding: 12px 8px; }
+      .stat-number { font-size: 1.25rem; }
+      .stat-label { font-size: 10px; }
+      .hero-grid { background-size: 40px 40px; }
+    }
+    @media (max-width: 767px) {
+      .orb-1 { width: 260px; height: 260px; filter: blur(60px); }
+      .orb-2 { width: 220px; height: 220px; filter: blur(60px); }
+      .orb-3 { width: 180px; height: 180px; filter: blur(60px); }
+      section, footer, nav { max-width: 100vw; overflow-x: hidden; }
+      .stat-grid-mobile { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; max-width: 100% !important; }
+      .hero-buttons-wrap { flex-direction: column; width: 100%; }
+      .hero-buttons-wrap a { width: 100%; text-align: center; }
+      .cards-grid { grid-template-columns: 1fr !important; }
+      .process-step-card { padding: 16px 18px !important; }
+      .comp-desktop { display: none !important; }
+      .comp-mobile  { display: flex !important; }
+      .pricing-grid { grid-template-columns: 1fr !important; }
+      .pricing-card-popular { margin-top: 20px; }
+      .founders-grid { grid-template-columns: 1fr !important; max-width: 280px !important; }
+      .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+      .demo-card-inner { padding: 24px 16px !important; }
+      .section-py { padding-top: 60px !important; padding-bottom: 60px !important; }
+      .flex-hero-cta { flex-direction: column; align-items: stretch; }
+      .flex-hero-cta a { text-align: center; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .orb-1 { width: 380px; height: 380px; }
+      .orb-2 { width: 300px; height: 300px; }
+      .orb-3 { width: 240px; height: 240px; }
+      .stat-number { font-size: 1.8rem; }
+    }
+    img, video, iframe, svg { max-width: 100%; height: auto; }
+  </style>
+</head>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://veloroai.agency/#organization",
+      "name": "Veloro AI",
+      "url": "https://veloroai.agency",
+      "email": "veloro@veloroai.agency",
+      "sameAs": [
+        "https://www.instagram.com/veloro_ai/",
+        "https://www.linkedin.com/company/veloroaims"
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "AI Voice Receptionist for Dental Clinics",
+      "provider": { "@id": "https://veloroai.agency/#organization" },
+      "areaServed": ["United States", "United Kingdom"],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Dental Clinics"
+      },
+      "description": "24/7 AI voice receptionist that answers patient calls, books appointments, and handles rescheduling and cancellations for dental clinics."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can the AI receptionist book appointments directly into our calendar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The AI connects to your calendar in real time. Patients can book, reschedule, or cancel without any manual input from your staff."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it answer calls after hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Veloro operates 24/7. After-hours calls, weekend inquiries, and holiday bookings are handled the same way as business hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it handle rescheduling, cancellations, and follow-ups?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The AI manages the full appointment lifecycle: booking, rescheduling, cancellations, and automated follow-up workflows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do we need to change our current phone system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. Veloro is designed to integrate with your existing setup. We handle the technical configuration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if we already have a front desk team?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Veloro is built to support your team, not replace them. It handles overflow, after-hours calls, and automation so your staff can focus on in-clinic patient care."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<body>
+
+  <!-- Drifting silver orbs -->
+  <div class="orb-wrap">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- 3D rotating logo — fixed behind everything -->
+  <div class="bg-logo-wrap">
+    <div class="bg-logo-scene">
+      <div class="bg-logo-obj">
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+        <div class="layer"><img src="logo.png" alt="" aria-hidden="true"></div>
+      </div>
+      <div class="bg-logo-shimmer"></div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader-screen">
+    <div class="loader"></div>
+  </div>
+
+  <!--
+    SEO / no-JS fallback content. This is real, visible content that
+    renders immediately on page load, before React/Babel finish executing.
+    React's root.render() below replaces this div's contents once the app
+    mounts, so a normal visitor never sees a flash of duplicate content —
+    but any crawler, bot, or slow/failed script sees real text either way.
+    This is progressive enhancement, not cloaking: identical content, same
+    audience, just not JS-dependent.
+  -->
+  <div id="root">
+    <div id="seo-fallback">
+      <h1>Never Miss a Patient Call Again</h1>
+      <p>Veloro AI's AI voice receptionist answers every call, books the appointment, and keeps your dental clinic's schedule full, so no patient ever hits voicemail again.</p>
+      <p>Right now we're proving this for dental clinics: missed calls, after-hours inquiries, booking, and follow-ups, all handled automatically, 24/7.</p>
+
+      <h2>Services</h2>
+      <p><strong>AI Voice Receptionist</strong> — every inbound call answered 24/7 and turned into a booked appointment. Handles rescheduling, cancellations, and FAQs in natural conversation.</p>
+      <p><strong>Appointment Automation</strong> — patients book, reschedule, or cancel themselves in real time, straight into your calendar.</p>
+      <p><strong>After-Hours Call Handling</strong> — a call at 9pm gets the same booked outcome as a call at 9am, not a voicemail.</p>
+      <p><strong>Workflow Automation</strong> — reminders, follow-up sequences, and internal notifications run on their own.</p>
+
+      <h2>How It Works</h2>
+      <p>Discovery call to learn how your clinic handles calls today, a custom build of your AI receptionist and workflows, integration with your existing calendar and tools, then go live, usually within days.</p>
+
+      <h2>About Veloro AI</h2>
+      <p>Veloro builds AI systems that pick up the phone, book the appointment, and keep the calendar full, so you stop losing business to voicemail. We build the system, connect it to your tools, and keep it running for your clinic. Founded by Muhammad Mohsin and Malik Subhan.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <p><strong>Can the AI receptionist book appointments directly into our calendar?</strong> Yes, in real time, with no manual input from staff.</p>
+      <p><strong>Can it answer calls after hours?</strong> Yes, Veloro operates 24/7, including weekends and holidays.</p>
+      <p><strong>Can it handle rescheduling, cancellations, and follow-ups?</strong> Yes, the full appointment lifecycle is covered.</p>
+      <p><strong>Do we need to change our current phone system?</strong> Not necessarily, Veloro integrates with your existing setup.</p>
+      <p><strong>What if we already have a front desk team?</strong> Veloro supports your team by handling overflow, after-hours calls, and automation.</p>
+
+      <p><a href="https://cal.com/veloroai">Book a free demo</a> or email <a href="mailto:veloro@veloroai.agency">veloro@veloroai.agency</a>.</p>
+    </div>
+  </div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    function useScrollAnim() {
+      const ref = useRef(null);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+          entries => entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+          }),
+          { threshold: 0.07, rootMargin: '0px 0px -30px 0px' }
+        );
+        el.querySelectorAll('.fade-in').forEach(i => obs.observe(i));
+        return () => obs.disconnect();
+      }, []);
+      return ref;
+    }
+
+    function useCounter(target, duration = 1800) {
+      const [count, setCount] = useState(0);
+      const [started, setStarted] = useState(false);
+      const ref = useRef(null);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting && !started) { setStarted(true); obs.disconnect(); }
+        }, { threshold: 0.5 });
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, [started]);
+      useEffect(() => {
+        if (!started) return;
+        let start = null;
+        const step = ts => {
+          if (!start) start = ts;
+          const prog = Math.min((ts - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - prog, 3);
+          setCount(Math.floor(ease * target));
+          if (prog < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }, [started, target, duration]);
+      return [ref, count];
+    }
+
+    function scrollTo(id) {
+      document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function Navbar() {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+useEffect(() => {
+  const h = () => setIsMobile(window.innerWidth < 768);
+  window.addEventListener('resize', h);
+  return () => window.removeEventListener('resize', h);
+}, []);
+
+      const [open, setOpen] = useState(false);
+      const [scrolled, setScrolled] = useState(false);
+      useEffect(() => {
+        const h = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', h, { passive: true });
+        return () => window.removeEventListener('scroll', h);
+      }, []);
+      const links = [
+        { label: 'Services', href: '#services' },
+        { label: 'How It Works', href: '#process' },
+        { label: 'Pricing', href: '#pricing' },
+        { label: 'About', href: '#about' },
+        { label: 'Contact', href: '#contact' },
+      ];
+      const nav = (e, href) => { e.preventDefault(); setOpen(false); scrollTo(href); };
+      return (
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-blur border-b border-v-border' : ''}`} style={{position:'fixed',top:0,left:0,right:0,zIndex:50,width:'100%'}}>
+          <div style={{maxWidth:1280,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',justifyContent:'space-between',height:60}}>
+            <a href="#" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}} style={{display:'flex',alignItems:'center',gap:10,textDecoration:'none',flexShrink:0}}>
+              <img src="logo.png" alt="Veloro AI" style={{height:30,width:'auto'}} />
+              <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:17,color:'#e8e8e8',letterSpacing:'-0.01em'}}>Veloro</span>
+            </a>
+            <div style={{display: isMobile ? 'none' : 'flex', alignItems:'center', gap:28}}>
+              {links.map(l => (
+                <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{fontSize:13,color:'#888',textDecoration:'none',transition:'color 0.2s',whiteSpace:'nowrap'}}
+                  onMouseEnter={e=>e.target.style.color='#e8e8e8'} onMouseLeave={e=>e.target.style.color='#888'}>{l.label}</a>
+              ))}
+              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{padding:'10px 22px',fontSize:13,whiteSpace:'nowrap'}}>Book a Demo</a>
+            </div>
+            <button style={{display: isMobile ? 'flex' : 'none', background:'none', border:'none', cursor:'pointer', color:'#e8e8e8', padding:8, alignItems:'center', justifyContent:'center'}} onClick={()=>setOpen(!open)}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                {open ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></>}
+              </svg>
+            </button>
+          </div>
+          {open && (
+            <div className="md:hidden nav-blur border-t border-v-border">
+              <div style={{padding:'20px 16px',display:'flex',flexDirection:'column',gap:16}}>
+                {links.map(l => <a key={l.href} href={l.href} onClick={e=>nav(e,l.href)} style={{color:'#999',textDecoration:'none',fontSize:15,padding:'4px 0'}}>{l.label}</a>)}
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{marginTop:4,textAlign:'center'}}>Book a Demo</a>
+              </div>
+            </div>
+          )}
+        </nav>
+      );
+    }
+
+    function StatCounter({ target, suffix, label }) {
+      const [ref, count] = useCounter(target);
+      return (
+        <div ref={ref} className="stat-card">
+          <div className="stat-number">{count}{suffix}</div>
+          <div className="stat-label">{label}</div>
+        </div>
+      );
+    }
+
+    function Hero() {
+      const ref = useScrollAnim();
+      return (
+        <section ref={ref} className="section-py" style={{position:'relative',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 16px 60px',overflow:'hidden'}}>
+          <div className="hero-grid"></div>
+          <div style={{position:'absolute',top:'40%',left:'50%',transform:'translate(-50%,-50%)',width:'min(600px,90vw)',height:'min(400px,60vw)',background:'radial-gradient(ellipse,rgba(200,200,200,0.06) 0%,transparent 70%)',pointerEvents:'none'}}></div>
+          <div style={{position:'relative',zIndex:10,maxWidth:760,width:'100%',textAlign:'center',margin:'0 auto'}}>
+            <div className="fade-in" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'5px 16px',borderRadius:100,border:'1px solid #222',background:'rgba(255,255,255,0.03)',fontSize:11,color:'#999',fontWeight:500,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:28,flexWrap:'nowrap'}}>
+              <span style={{width:5,height:5,borderRadius:'50%',background:'#b0b0b0',display:'inline-block',flexShrink:0}}></span>
+              AI Voice Receptionist for Dental Clinics
+            </div>
+            <h1 className="fade-in font-display glow-heading glow-heading-hero" style={{fontSize:'clamp(2rem,8vw,5rem)',fontWeight:700,lineHeight:1.08,letterSpacing:'-0.03em',marginBottom:24,transitionDelay:'0.05s'}}>
+              <span className="gradient-text">Never Miss</span><br/>
+              <span style={{color:'#e8e8e8'}}>a Patient Call</span><br/>
+              <span style={{color:'#e8e8e8'}}>Again.</span>
+            </h1>
+            <p className="fade-in" style={{fontSize:'clamp(0.9rem,2.5vw,1.1rem)',color:'#9a9a9a',maxWidth:540,margin:'0 auto 12px',lineHeight:1.75,transitionDelay:'0.1s',padding:'0 4px'}}>
+              Veloro's AI receptionist answers every call, books the appointment, and keeps your schedule full, so no patient ever hits voicemail again.
+            </p>
+            <p className="fade-in" style={{fontSize:13,color:'#828282',maxWidth:430,margin:'0 auto 36px',lineHeight:1.65,transitionDelay:'0.15s',padding:'0 4px'}}>
+              Right now we're proving this for dental clinics: missed calls, after-hours inquiries, booking, and follow-ups, all handled automatically.
+            </p>
+            <div className="fade-in flex-hero-cta" style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',transitionDelay:'0.2s'}}>
+              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{minWidth:160}}>Book a Free Demo</a>
+              <a href="#process" onClick={e=>{e.preventDefault();scrollTo('#process');}} className="btn-secondary" style={{minWidth:160}}>See How It Works</a>
+            </div>
+            <div className="fade-in stat-grid-mobile" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginTop:48,maxWidth:420,marginLeft:'auto',marginRight:'auto',transitionDelay:'0.3s'}}>
+              <StatCounter target={100} suffix="%" label="Calls Answered" />
+              <StatCounter target={24} suffix="/7" label="Always On" />
+              <StatCounter target={2} suffix=" min" label="Avg Response" />
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function PainPoints() {
+      const ref = useScrollAnim();
+      const pains = [
+        { t: "Phones ring during busy hours", d: "Staff can't answer every call while treating patients. Each missed ring is a patient who books with someone else instead.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
+        { t: "After-hours = zero coverage", d: "Patients call at night, on weekends, on holidays. No one picks up, and they don't try again tomorrow. They book elsewhere.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
+        { t: "Front desk is overloaded", d: "Manual scheduling, rescheduling, and follow-ups eat hours every day that could go toward patients already in the chair.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg> },
+        { t: "Slow follow-ups lose patients", d: "A missed callback is a missed booking. Without a system catching it, that appointment just doesn't happen.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+        { t: "Lost appointment opportunities", d: "Every unanswered call and every missed rebook is revenue that already walked out the door.", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
+      ];
+      return (
+        <section ref={ref} id="problem" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
+              <span className="fade-in section-label">The Problem</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Every Missed Call Is<br/><span className="gradient-text">Lost Revenue</span>
+              </h2>
+            </div>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(260px,100%),1fr))',gap:14}}>
+              {pains.map((p,i) => (
+                <div key={i} className="fade-in v-card" style={{padding:'24px 20px',transitionDelay:`${i*0.05}s`}}>
+                  <div style={{width:36,height:36,borderRadius:8,background:'#161616',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16,flexShrink:0}}>{p.icon}</div>
+                  <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:8,fontFamily:"'Space Grotesk',sans-serif"}}>{p.t}</h3>
+                  <p style={{color:'#999',fontSize:13,lineHeight:1.7}}>{p.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Services() {
+      const ref = useScrollAnim();
+      const services = [
+        { title:"AI Voice Receptionist", desc:"Every inbound call gets answered, 24/7, and turned into a booked appointment instead of a missed opportunity. Handles rescheduling, cancellations, and FAQs in natural conversation.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
+        { title:"Appointment Automation", desc:"Patients book, reschedule, or cancel themselves in real time, straight into your calendar. Your schedule fills without anyone touching a keyboard.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
+        { title:"After-Hours Call Handling", desc:"Your clinic closes. Veloro doesn't. A call at 9pm gets the same booked outcome as a call at 9am, not a voicemail.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> },
+        { title:"Workflow Automation", desc:"Reminders, follow-up sequences, and internal notifications run on their own, so nothing gets missed just because someone forgot.", icon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
+      ];
+      return (
+        <section ref={ref} id="services" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
+              <span className="fade-in section-label">Services</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Systems Built to <span className="gradient-text">Book the Appointment</span>
+              </h2>
+            </div>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(270px,100%),1fr))',gap:16}}>
+              {services.map((s,i) => (
+                <div key={i} className="fade-in v-card" style={{padding:'28px 22px',transitionDelay:`${i*0.05}s`}}>
+                  <div style={{width:44,height:44,borderRadius:10,background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:18,flexShrink:0}}>{s.icon}</div>
+                  <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:16,marginBottom:10,fontFamily:"'Space Grotesk',sans-serif"}}>{s.title}</h3>
+                  <p style={{color:'#999',fontSize:13,lineHeight:1.75}}>{s.desc}</p>
+                </div>
+              ))}
+            </div>
+            <p className="fade-in" style={{color:'#888',fontSize:12,marginTop:32,textAlign:'center',transitionDelay:'0.2s'}}>Every system is custom-built around your clinic's actual call volume and workflow, not a one-size-fits-all script.</p>
+          </div>
+        </section>
+      );
+    }
+
+    function HowItWorks() {
+      const ref = useScrollAnim();
+      const steps = [
+        { n:"01", t:"Discovery Call", d:"We learn how your clinic handles calls, appointments, and follow-ups today." },
+        { n:"02", t:"Custom Build", d:"We build and configure your AI receptionist and automation workflows to match your exact process." },
+        { n:"03", t:"Integration", d:"We connect everything to your calendar and existing tools. No disruption to your current setup." },
+        { n:"04", t:"Go Live", d:"Your AI system goes live. From day one, every call is answered, every appointment is captured." },
+      ];
+      return (
+        <section ref={ref} id="process" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:720,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
+              <span className="fade-in section-label">Process</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Live and <span className="gradient-text">Booking Calls</span> in Days
+              </h2>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:12}}>
+              {steps.map((s,i) => (
+                <div key={i} className="fade-in" style={{display:'flex',gap:16,alignItems:'stretch',transitionDelay:`${i*0.07}s`}}>
+                  <div style={{display:'flex',flexDirection:'column',alignItems:'center',flexShrink:0}}>
+                    <div style={{width:40,height:40,borderRadius:'50%',background:'#101010',border:'1px solid #2a2a2a',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                      <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:11,background:'linear-gradient(135deg,#fff 0%,#888 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{s.n}</span>
+                    </div>
+                    {i < steps.length-1 && <div style={{width:1,flex:1,background:'linear-gradient(to bottom,#222,transparent)',marginTop:4}}></div>}
+                  </div>
+                  <div className="v-card process-step-card" style={{padding:'18px 20px',flex:1,minWidth:0}}>
+                    <h3 style={{color:'#e0e0e0',fontWeight:600,fontSize:15,marginBottom:6,fontFamily:"'Space Grotesk',sans-serif"}}>{s.t}</h3>
+                    <p style={{color:'#999',fontSize:13,lineHeight:1.7}}>{s.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function DemoSection() {
+      const videoRef = useRef(null);
+      const [isPlaying, setIsPlaying] = useState(false);
+      const ref = useScrollAnim();
+      const toggleVideo = () => {
+        if (!videoRef.current) return;
+        if (videoRef.current.paused) { videoRef.current.play(); setIsPlaying(true); }
+        else { videoRef.current.pause(); setIsPlaying(false); }
+      };
+      return (
+        <section ref={ref} id="demo" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:680,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
+              <span className="fade-in section-label">Live Demo</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Hear a Real <span className="gradient-text">Booking</span> Happen
+              </h2>
+            </div>
+            <div className="fade-in v-card demo-card-inner" style={{padding:'32px 20px',textAlign:'center'}}>
+              <div className="play-btn" style={{marginBottom:20}} onClick={toggleVideo}>
+                {isPlaying
+                  ? <svg width="26" height="26" viewBox="0 0 24 24" fill="#080808"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                  : <svg width="26" height="26" viewBox="0 0 24 24" fill="#080808"><polygon points="6 3 20 12 6 21 6 3"/></svg>}
+              </div>
+              <div style={{borderRadius:10,overflow:'hidden',border:'1px solid #1e1e1e',marginBottom:20}}>
+                <video ref={videoRef} controls preload="none" style={{width:'100%',height:'500px',display:'block'}} poster="thumbnail.png"
+                  onPlay={()=>setIsPlaying(true)} onPause={()=>setIsPlaying(false)} onEnded={()=>setIsPlaying(false)}>
+                  <source src="demovideo.mp4" type="video/mp4"/>
+                </video>
+              </div>
+              <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary">Book a Free Demo</a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function UseCases() {
+      const ref = useScrollAnim();
+      const cases = [
+        { s:"Patient calls at 11pm with a toothache", r:"AI answers, gathers info, books the next available emergency slot." },
+        { s:"Front desk is with a patient", r:"Incoming call is handled by AI, appointment booked without interruption." },
+        { s:"Patient wants to reschedule", r:"AI checks calendar availability, reschedules in real time, no staff needed." },
+        { s:"Cancellation comes in", r:"AI logs the cancellation, sends a follow-up, opens the slot automatically." },
+        { s:"Clinic is closed for the weekend", r:"AI handles all inquiries, answers FAQs, and books Monday appointments." },
+        { s:"Staff forgets to send follow-up", r:"Automated workflow sends it on schedule, every time." },
+      ];
+      return (
+        <section ref={ref} id="usecases" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
+              <span className="fade-in section-label">Use Cases</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Built for the Calls You're <span className="gradient-text">Actually Losing</span>
+              </h2>
+            </div>
+            <div className="cards-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:12}}>
+              {cases.map((c,i) => (
+                <div key={i} className="fade-in v-card" style={{padding:'20px 18px',transitionDelay:`${i*0.04}s`}}>
+                  <p style={{color:'#c0c0c0',fontWeight:500,fontSize:14,marginBottom:10,lineHeight:1.5}}>{c.s}</p>
+                  <p style={{color:'#909090',fontSize:13,lineHeight:1.65}}>→ {c.r}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Comparison() {
+      const ref = useScrollAnim();
+      const rows = [
+        { f:"Available 24/7", h:false, v:true },
+        { f:"Answers every call", h:"sometimes", v:true },
+        { f:"Handles after-hours", h:false, v:true },
+        { f:"Books appointments in real time", h:true, v:true },
+        { f:"Handles rescheduling & cancellations", h:true, v:true },
+        { f:"Sends automated follow-ups", h:false, v:true },
+        { f:"Scales without extra cost", h:false, v:true },
+        { f:"Never calls in sick", h:false, v:true },
+      ];
+      const Cell = ({val}) => {
+        if (val === true) return <span style={{color:'#c0c0c0',fontSize:16}}>✓</span>;
+        if (val === false) return <span style={{color:'#282828',fontSize:16}}>✕</span>;
+        return <span style={{color:'#666',fontSize:12,fontStyle:'italic'}}>Sometimes</span>;
+      };
+      return (
+        <section ref={ref} id="comparison" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:760,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:16}}>
+              <span className="fade-in section-label">Why Veloro</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Not a Replacement. <span className="gradient-text">A Force Multiplier.</span>
+              </h2>
+            </div>
+            <p className="fade-in" style={{textAlign:'center',color:'#888',fontSize:13,marginBottom:40,fontStyle:'italic'}}>Veloro is designed to support your front desk, not replace it.</p>
+            <div className="fade-in v-card overflow-hidden comp-desktop" style={{overflowX:'auto'}}>
+              <div style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:'1px solid #1e1e1e'}}>
+                <div style={{padding:'14px 20px'}}></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e'}}><span style={{color:'#666',fontSize:12,fontWeight:600}}>Human Receptionist</span></div>
+                <div style={{padding:'14px 20px',textAlign:'center',borderLeft:'1px solid #1e1e1e',background:'rgba(255,255,255,0.02)'}}><span className="gradient-text" style={{fontSize:12,fontWeight:700,fontFamily:"'Space Grotesk',sans-serif",fontStyle:'normal'}}>Veloro AI</span></div>
+              </div>
+              {rows.map((r,i) => (
+                <div key={i} style={{minWidth:400,display:'grid',gridTemplateColumns:'1fr 140px 140px',borderBottom:i<rows.length-1?'1px solid #141414':'none'}}>
+                  <div style={{padding:'12px 20px',fontSize:13,color:'#aaa'}}>{r.f}</div>
+                  <div style={{padding:'12px 20px',textAlign:'center',borderLeft:'1px solid #141414',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.h}/></div>
+                  <div style={{padding:'12px 20px',textAlign:'center',borderLeft:'1px solid #141414',background:'rgba(255,255,255,0.01)',display:'flex',alignItems:'center',justifyContent:'center'}}><Cell val={r.v}/></div>
+                </div>
+              ))}
+            </div>
+            <div className="fade-in comp-mobile" style={{display:'none',flexDirection:'column',gap:10}}>
+              {rows.map((r,i) => (
+                <div key={i} className="v-card" style={{padding:'16px 18px'}}>
+                  <p style={{color:'#bbb',fontWeight:500,fontSize:13,marginBottom:10}}>{r.f}</p>
+                  <div style={{display:'flex',gap:24}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{color:'#666',fontSize:11}}>Human</span><Cell val={r.h}/></div>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}><span className="gradient-text" style={{fontSize:11,fontWeight:600,fontFamily:"'Space Grotesk',sans-serif",fontStyle:'normal'}}>Veloro</span><Cell val={r.v}/></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Pricing() {
+      const ref = useScrollAnim();
+      return (
+        <section ref={ref} id="pricing" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:900,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:16}}>
+              <span className="fade-in section-label">Pricing</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Pricing Built Around <span className="gradient-text">Appointments Booked</span>
+              </h2>
+            </div>
+            <p className="fade-in" style={{textAlign:'center',color:'#888',fontSize:13,marginBottom:40,fontStyle:'italic',padding:'0 8px'}}>Final pricing depends on your clinic's call volume. Book a call to get a custom quote.</p>
+            <div className="pricing-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(280px,100%),1fr))',gap:20}}>
+              <div className="fade-in v-card" style={{padding:'32px 24px',display:'flex',flexDirection:'column'}}>
+                <p style={{color:'#777',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Starter</p>
+                <div style={{marginBottom:20}}>
+                  <span className="gradient-text font-display" style={{fontSize:'1.7rem',fontWeight:700,letterSpacing:'-0.02em',fontStyle:'normal'}}>Custom Quote</span>
+                  <p style={{color:'#777',fontSize:12,marginTop:4}}>Priced to your clinic's call volume</p>
+                </div>
+                <div style={{height:1,background:'#1a1a1a',marginBottom:20}}></div>
+                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
+                  {["Every inbound call answered, 24/7","Appointment booking handled live","Rescheduling & cancellations covered","Calendar integration included","Email support"].map((f,i) => (
+                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#888'}}>
+                      <span style={{color:'#999',marginTop:1,flexShrink:0}}>✓</span>{f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{textAlign:'center'}}>Book a Demo</a>
+              </div>
+              <div className="fade-in v-card pricing-card-popular" style={{padding:'32px 24px',display:'flex',flexDirection:'column',position:'relative',border:'1px solid #2e2e2e',boxShadow:'0 0 40px rgba(180,180,180,0.04)'}}>
+                <div style={{position:'absolute',top:-13,left:'50%',transform:'translateX(-50%)',whiteSpace:'nowrap'}}>
+                  <span className="popular-badge">Most Popular</span>
+                </div>
+                <p style={{color:'#777',fontSize:11,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12,fontFamily:"'Space Grotesk',sans-serif"}}>Growth</p>
+                <div style={{marginBottom:20}}>
+                  <span className="gradient-text font-display" style={{fontSize:'1.7rem',fontWeight:700,letterSpacing:'-0.02em',fontStyle:'normal'}}>Custom Quote</span>
+                  <p style={{color:'#777',fontSize:12,marginTop:4}}>Priced to your clinic's call volume</p>
+                </div>
+                <div style={{height:1,background:'#2a2a2a',marginBottom:20}}></div>
+                <ul style={{listStyle:'none',padding:0,flex:1,marginBottom:24,display:'flex',flexDirection:'column',gap:10}}>
+                  {["Everything in Starter","After-hours calls turned into bookings","Reschedule automation, zero staff time","Follow-up workflows that run themselves","Priority support","Monthly performance review"].map((f,i) => (
+                    <li key={i} style={{display:'flex',alignItems:'flex-start',gap:10,fontSize:13,color:'#888'}}>
+                      <span style={{color:'#999',marginTop:1,flexShrink:0}}>✓</span>{f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{textAlign:'center'}}>Book a Demo</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function About() {
+      const ref = useScrollAnim();
+      return (
+        <section ref={ref} id="about" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:760,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
+              <span className="fade-in section-label">About</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Built by Operators Who Care<br/>About <span className="gradient-text">Results</span>
+              </h2>
+            </div>
+            <p className="fade-in" style={{color:'#999',fontSize:15,lineHeight:1.85,textAlign:'center',maxWidth:540,margin:'0 auto 44px',padding:'0 4px'}}>
+              Veloro builds AI systems that pick up the phone, book the appointment, and keep the calendar full, so you stop losing business to voicemail. We're not a software product you configure yourself. We build the system, connect it to your tools, and keep it running for your clinic.
+            </p>
+            <div className="founders-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(200px,100%),1fr))',gap:14,maxWidth:440,margin:'0 auto'}}>
+              {[
+                { name:"Muhammad Mohsin", url:"https://www.linkedin.com/in/muhammad-mohsin-ai/" },
+                { name:"Malik Subhan", url:"https://www.linkedin.com/in/malik-subhan-469224414/" },
+              ].map((f,i) => (
+                <a key={i} href={f.url} target="_blank" rel="noopener noreferrer" className="fade-in v-card" style={{padding:'22px 18px',textAlign:'center',textDecoration:'none',transitionDelay:`${i*0.06}s`}}>
+                  <div style={{width:44,height:44,borderRadius:'50%',background:'#141414',border:'1px solid #222',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 12px'}}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <h4 style={{color:'#e0e0e0',fontWeight:600,fontSize:14,fontFamily:"'Space Grotesk',sans-serif"}}>{f.name}</h4>
+                  <p style={{color:'#666',fontSize:12,marginTop:4}}>Co-Founder</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function FAQ() {
+      const ref = useScrollAnim();
+      const [open, setOpen] = useState(null);
+      const faqs = [
+        { q:"Can the AI receptionist book appointments directly into our calendar?", a:"Yes. The AI connects to your calendar in real time. Patients can book, reschedule, or cancel without any manual input from your staff." },
+        { q:"Can it answer calls after hours?", a:"Yes. Veloro operates 24/7. After-hours calls, weekend inquiries, and holiday bookings are handled the same way as business hours." },
+        { q:"Can it handle rescheduling, cancellations, and follow-ups?", a:"Yes. The AI manages the full appointment lifecycle — booking, rescheduling, cancellations, and automated follow-up workflows." },
+        { q:"Do we need to change our current phone system?", a:"Not necessarily. Veloro is designed to integrate with your existing setup. We handle the technical configuration." },
+        { q:"What if we already have a front desk team?", a:"Veloro is built to support your team, not replace them. It handles overflow, after-hours calls, and automation so your staff can focus on in-clinic patient care." },
+      ];
+      return (
+        <section ref={ref} id="faq" className="section-py" style={{padding:'64px 16px',borderTop:'1px solid rgba(255,255,255,0.045)'}}>
+          <div style={{maxWidth:680,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:48}}>
+              <span className="fade-in section-label">FAQ</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Common <span className="gradient-text">Questions</span>
+              </h2>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:10}}>
+              {faqs.map((f,i) => (
+                <div key={i} className="fade-in v-card" style={{overflow:'hidden',transitionDelay:`${i*0.04}s`,borderColor:open===i?'#2e2e2e':'#1e1e1e'}}>
+                  <button style={{width:'100%',textAlign:'left',padding:'18px 20px',background:'none',border:'none',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,color:'#c8c8c8',fontSize:14,fontWeight:500,fontFamily:"'Space Grotesk',sans-serif"}} onClick={()=>setOpen(open===i?null:i)}>
+                    <span style={{flex:1,minWidth:0}}>{f.q}</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,transition:'transform 0.2s',transform:open===i?'rotate(180deg)':'rotate(0deg)'}}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  <div style={{maxHeight:open===i?200:0,overflow:'hidden',transition:'max-height 0.3s ease, opacity 0.3s ease',opacity:open===i?1:0}}>
+                    <div style={{padding:'0 20px 18px',color:'#999',fontSize:13,lineHeight:1.75}}>{f.a}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Contact() {
+      const ref = useScrollAnim();
+      const [form, setForm] = useState({ name:'', company:'', email:'', message:'' });
+      const [status, setStatus] = useState('');
+      const handleChange = e => setForm({...form, [e.target.name]: e.target.value});
+      const handleSubmit = async e => {
+        e.preventDefault();
+        setStatus('sending');
+        try {
+          const res = await fetch('https://formspree.io/f/xkoavjlj', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify(form),
+          });
+          if (res.ok) { setStatus('success'); setForm({name:'',company:'',email:'',message:''}); }
+          else { setStatus('error'); }
+        } catch { setStatus('error'); }
+      };
+      return (
+        <section ref={ref} id="contact" className="section-py" style={{padding:'64px 16px'}}>
+          <div style={{maxWidth:520,margin:'0 auto'}}>
+            <div style={{textAlign:'center',marginBottom:40}}>
+              <span className="fade-in section-label">Contact</span>
+              <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.6rem,5vw,3rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.025em',marginTop:16,lineHeight:1.1}}>
+                Ready to <span className="gradient-text">Stop Losing</span><br/>Patients?
+              </h2>
+            </div>
+            <form onSubmit={handleSubmit} className="fade-in" style={{display:'flex',flexDirection:'column',gap:12}}>
+              <input type="text" name="name" placeholder="Full Name *" required value={form.name} onChange={handleChange} className="input-field"/>
+              <input type="text" name="company" placeholder="Company / Clinic Name *" required value={form.company} onChange={handleChange} className="input-field"/>
+              <input type="email" name="email" placeholder="Email Address *" required value={form.email} onChange={handleChange} className="input-field"/>
+              <textarea name="message" placeholder="What are you looking for? *" required rows="4" value={form.message} onChange={handleChange} className="input-field" style={{resize:'vertical'}}/>
+              <button type="submit" className="btn-primary" style={{width:'100%',textAlign:'center'}} disabled={status==='sending'}>
+                {status==='sending' ? 'Sending...' : 'Send Message'}
+              </button>
+              {status==='success' && <p style={{color:'#a0a0a0',fontSize:13,textAlign:'center'}}>Message sent! We'll get back to you soon.</p>}
+              {status==='error' && <p style={{color:'#888',fontSize:13,textAlign:'center'}}>Something went wrong. Email us at veloro@veloroai.agency</p>}
+            </form>
+            <p className="fade-in" style={{textAlign:'center',color:'#888',fontSize:13,marginTop:20}}>
+              Or book directly: <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="gradient-text" style={{fontWeight:600,textDecoration:'none',fontStyle:'normal'}}>Book a Free Demo →</a>
+            </p>
+          </div>
+        </section>
+      );
+    }
+
+    function FinalCTA() {
+      const ref = useScrollAnim();
+      return (
+        <section ref={ref} className="section-py" style={{padding:'64px 16px',position:'relative',overflow:'hidden'}}>
+          <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at center,rgba(160,160,160,0.04) 0%,transparent 65%)',pointerEvents:'none'}}></div>
+          <div style={{position:'absolute',top:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#222,transparent)'}}></div>
+          <div style={{position:'absolute',bottom:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,#1a1a1a,transparent)'}}></div>
+          <div style={{position:'relative',zIndex:10,maxWidth:680,margin:'0 auto',textAlign:'center'}}>
+            <h2 className="fade-in font-display glow-heading" style={{fontSize:'clamp(1.7rem,6vw,3.4rem)',fontWeight:700,color:'#e8e8e8',letterSpacing:'-0.03em',marginBottom:16,lineHeight:1.1}}>
+              Your Next Patient Shouldn't<br/><span className="gradient-text">Go to Voicemail.</span>
+            </h2>
+            <p className="fade-in" style={{color:'#999',fontSize:15,marginBottom:36,lineHeight:1.75,transitionDelay:'0.1s',padding:'0 8px'}}>Book a free demo and see exactly how Veloro can be set up for your clinic.</p>
+            <a href="https://cal.com/veloroai" target="_blank" rel="noopener noreferrer" className="fade-in btn-primary" style={{fontSize:15,padding:'14px 32px',transitionDelay:'0.15s'}}>Book a Free Demo</a>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      const links = [
+        { label:'Services', href:'#services' },
+        { label:'How It Works', href:'#process' },
+        { label:'Pricing', href:'#pricing' },
+        { label:'About', href:'#about' },
+        { label:'Contact', href:'#contact' },
+      ];
+      return (
+        <footer style={{borderTop:'1px solid #141414',padding:'44px 16px 24px',background:'#050505'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            <div className="footer-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(180px,100%),1fr))',gap:32,marginBottom:36}}>
+              <div>
+                <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
+                  <img src="logo.png" alt="Veloro AI" style={{height:28,width:'auto'}}/>
+                  <span style={{fontFamily:"'Space Grotesk',sans-serif",fontWeight:700,fontSize:16,color:'#e0e0e0'}}>Veloro</span>
+                </div>
+                <p style={{color:'#888',fontSize:13,lineHeight:1.65,maxWidth:200}}>AI Voice Receptionists for Dental Clinics</p>
+              </div>
+              <div>
+                <h4 style={{color:'#666',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Quick Links</h4>
+                <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                  {links.map(l => <a key={l.href} href={l.href} onClick={e=>{e.preventDefault();scrollTo(l.href);}} style={{color:'#909090',fontSize:13,textDecoration:'none',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#e0e0e0'} onMouseLeave={e=>e.target.style.color='#909090'}>{l.label}</a>)}
+                </div>
+              </div>
+              <div>
+                <h4 style={{color:'#666',fontWeight:600,fontSize:11,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:14,fontFamily:"'Space Grotesk',sans-serif"}}>Get in Touch</h4>
+                <a href="mailto:veloro@veloroai.agency" style={{color:'#909090',fontSize:13,textDecoration:'none',display:'block',marginBottom:14,wordBreak:'break-all'}} onMouseEnter={e=>e.target.style.color='#e0e0e0'} onMouseLeave={e=>e.target.style.color='#909090'}>veloro@veloroai.agency
+                </a>
+                <div style={{display:'flex',gap:14}}>
+                  <a href="https://www.instagram.com/velorohq/" target="_blank" rel="noopener noreferrer" style={{color:'#555',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#555'} aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                  </a>
+                  <a href="https://www.linkedin.com/company/veloroaims" target="_blank" rel="noopener noreferrer" style={{color:'#555',transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#bbb'} onMouseLeave={e=>e.target.style.color='#555'} aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div style={{borderTop:'1px solid #111',paddingTop:18,textAlign:'center'}}>
+              <p style={{color:'#444',fontSize:12}}>© {new Date().getFullYear()} Veloro AI. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function App() {
+      return (
+        <div style={{minHeight:'100vh',width:'100%',overflowX:'hidden'}}>
+          <Navbar/>
+          <Hero/>
+          <PainPoints/>
+          <Services/>
+          <HowItWorks/>
+          <DemoSection/>
+          <UseCases/>
+          <Comparison/>
+          <Pricing/>
+          <About/>
+          <FAQ/>
+          <Contact/>
+          <FinalCTA/>
+          <Footer/>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App/>);
+  </script>
+
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader-screen");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 500);
+      }, 500);
+    });
+
+    // ── Interactive logo rotation ──
+    // currentY / currentX are the single source of truth for the logo's
+    // rotation. Both "idle auto-spin" and "user is scrolling/moving the
+    // mouse" read from and write to these, so switching between the two
+    // never snaps back to a fixed start position — it always continues
+    // from wherever the logo already was.
+    const logoObj = document.querySelector('.bg-logo-obj');
+
+    let currentY = 0;
+    let currentX = 10;
+
+    let idleRafId = null;
+    let idleStartTs = null;
+    let idleStartY = 0;
+    let idleStartX = 10;
+    let resumeTimeout = null;
+
+    const SPIN_SPEED = 360 / 20000;   // deg per ms — same pace as the old loop
+    const WOBBLE_BASE = 9;
+    const WOBBLE_AMPLITUDE = 5;
+    const WOBBLE_PERIOD = 20000;
+
+    function applyTransform(y, x) {
+      if (!logoObj) return;
+      logoObj.style.transform = `rotateY(${y}deg) rotateX(${x}deg)`;
+      currentY = y;
+      currentX = x;
+    }
+
+    function idleFrame(ts) {
+      if (idleStartTs === null) {
+        idleStartTs = ts;
+        idleStartY = currentY;
+        idleStartX = currentX;
+      }
+      const elapsed = ts - idleStartTs;
+      const y = idleStartY + elapsed * SPIN_SPEED;
+      // ease X gently into the ambient wobble instead of snapping to it
+      const blend = Math.min(elapsed / 1200, 1);
+      const wobbleX = WOBBLE_BASE + WOBBLE_AMPLITUDE * Math.sin((elapsed / WOBBLE_PERIOD) * 2 * Math.PI);
+      const x = idleStartX + (wobbleX - idleStartX) * blend;
+      applyTransform(y, x);
+      idleRafId = requestAnimationFrame(idleFrame);
+    }
+
+    function cancelIdleSpin() {
+      if (idleRafId !== null) { cancelAnimationFrame(idleRafId); idleRafId = null; }
+      idleStartTs = null;
+    }
+
+    function startIdleSpin() {
+      cancelIdleSpin();
+      idleRafId = requestAnimationFrame(idleFrame);
+    }
+
+    function scheduleIdleResume() {
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(startIdleSpin, 800);
+    }
+
+    let scrollProgress = 0;
+    let mouseOffsetX = 0;
+    let mouseOffsetY = 0;
+
+    function handleInteraction() {
+      cancelIdleSpin();
+      applyTransform(scrollProgress + mouseOffsetX, 10 + mouseOffsetY);
+      scheduleIdleResume();
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 360 : 0;
+      handleInteraction();
+    }, { passive: true });
+
+    document.addEventListener('mousemove', (e) => {
+      mouseOffsetX = (e.clientX / window.innerWidth - 0.5) * 50;
+      mouseOffsetY = (e.clientY / window.innerHeight - 0.5) * 50;
+      handleInteraction();
+    });
+
+    // Start the idle spin immediately on load. There's only ever one
+    // rotation system now, so there's nothing to "switch back" to.
+    startIdleSpin();
+  </script>
+
+</body>
+</html>
